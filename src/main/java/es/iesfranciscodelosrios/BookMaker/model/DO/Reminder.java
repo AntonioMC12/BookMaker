@@ -1,64 +1,74 @@
 package es.iesfranciscodelosrios.BookMaker.model.DO;
 
-public class Reminder {
+import java.io.Serializable;
+import java.util.Objects;
 
-	private int id;
-	private int book_id;
-	private int chapterIndex;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
+import es.iesfranciscodelosrios.BookMaker.model.IDO.IReminder;
+
+@Entity
+@Table(name = "Reminder")
+public class Reminder implements IReminder, Serializable {
+	public static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id")
+	private IBook book;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "text")
 	private String text;
+	@Column(name = "chapterIndex")
+	private int chapterIndex;
 
 	/**
+	 * @param id
+	 * @param book
+	 * @param name
+	 * @param text
 	 * @param chapterIndex
-	 * @param name
-	 * @param text
 	 */
-	public Reminder(int chapterIndex, String name, String text) {
-		this.id = -1;
-		this.book_id = -1;
+	protected Reminder(Long id, IBook book, String name, String text, int chapterIndex) {
+		super();
+		this.id = id;
+		this.book = book;
+		this.name = name;
+		this.text = text;
 		this.chapterIndex = chapterIndex;
-		this.name = name;
-		this.text = text;
 	}
 
-	/**
-	 * @param name
-	 * @param text
-	 */
-	public Reminder(String name, String text) {
-		this.name = name;
-		this.text = text;
+	protected Reminder() {
+		super();
 	}
 
-	/**
-	 * @param name
-	 */
-	public Reminder(String name) {
-		this.name = name;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getBook_id() {
-		return book_id;
+	public IBook getBook() {
+		return book;
 	}
 
-	public void setBook_id(int book_id) {
-		this.book_id = book_id;
-	}
-
-	public int getChapterIndex() {
-		return chapterIndex;
-	}
-
-	public void setChapterIndex(int chapterIndex) {
-		this.chapterIndex = chapterIndex;
+	public void setBook(IBook book) {
+		this.book = book;
 	}
 
 	public String getName() {
@@ -77,10 +87,36 @@ public class Reminder {
 		this.text = text;
 	}
 
+	public int getChapterIndex() {
+		return chapterIndex;
+	}
+
+	public void setChapterIndex(int chapterIndex) {
+		this.chapterIndex = chapterIndex;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(book, chapterIndex, id, name, text);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reminder other = (Reminder) obj;
+		return Objects.equals(book, other.book) && chapterIndex == other.chapterIndex && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(text, other.text);
+	}
+
 	@Override
 	public String toString() {
-		return "Reminder [id=" + id + ", book_id=" + book_id + ", chapterIndex=" + chapterIndex + ", name=" + name
-				+ ", text=" + text + "]";
+		return "Reminder [id=" + id + ", book=" + book + ", name=" + name + ", text=" + text + ", chapterIndex="
+				+ chapterIndex + "]";
 	}
 
 }

@@ -1,53 +1,87 @@
 package es.iesfranciscodelosrios.BookMaker.model.DO;
 
-public class Act {
+import java.io.Serializable;
+import java.util.Objects;
 
-	private int id;
-	private int book_id;
-	private String title;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
+import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
+
+@Entity
+@Table(name="Act")
+public class Act implements IAct, Serializable{
+	public static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private Long id;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="book_id")
+	private IBook book;
+	@Column(name="name")
+	private String name;
+	@Column(name="description")
 	private String description;
-
 	/**
-	 * @param title
+	 * @param id
+	 * @param book
+	 * @param name
 	 * @param description
 	 */
-	public Act(String title, String description) {
-		this.id = -1;
-		this.book_id = -1;
-		this.title = title;
+	protected Act(Long id, IBook book, String name, String description) {
+		super();
+		this.id = id;
+		this.book = book;
+		this.name = name;
+		this.description = description;
+	}
+	
+	protected Act() {
+		super();
+	}
+
+	/**
+	 * @param name
+	 * @param description
+	 */
+	protected Act(String name, String description) {
+		super();
+		this.name = name;
 		this.description = description;
 	}
 
-	/**
-	 * @param title
-	 */
-	public Act(String title) {
-		super();
-		this.title = title;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getBook_id() {
-		return book_id;
+	public IBook getBook() {
+		return book;
 	}
 
-	public void setBook_id(int book_id) {
-		this.book_id = book_id;
+	public void setBook(IBook book) {
+		this.book = book;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -59,8 +93,28 @@ public class Act {
 	}
 
 	@Override
-	public String toString() {
-		return "Act [id=" + id + ", book_id=" + book_id + ", title=" + title + ", description=" + description + "]";
+	public int hashCode() {
+		return Objects.hash(book, description, id, name);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Act other = (Act) obj;
+		return Objects.equals(book, other.book) && Objects.equals(description, other.description)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	}
+
+	@Override
+	public String toString() {
+		return "Act [id=" + id + ", book=" + book + ", name=" + name + ", description=" + description + "]";
+	}
+	
+	
+	
 }
