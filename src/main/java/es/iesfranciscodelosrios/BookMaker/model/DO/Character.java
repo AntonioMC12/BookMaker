@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
@@ -27,6 +28,7 @@ public class Character implements ICharacter, Serializable {
 	private String description;
 	private String rol;
 
+	@ManyToMany(mappedBy = "book")
 	private List<IBook> books;
 
 	public Character(String name, String description, String rol, List<IBook> books) {
