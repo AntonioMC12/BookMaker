@@ -11,27 +11,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 
 @Entity
-@Table(name="Act")
-public class Act implements IAct, Serializable{
+@Table(name = "Act")
+@NamedQueries({ @NamedQuery(name = "findAll", query = "SELECT * FROM Act"),
+		@NamedQuery(name = "findByName", query = "SELECT ac FROM Act ac WHERE ac.name=:name"),
+		@NamedQuery(name = "findById", query = "SELECT ac FROM Act ac WHERE ac.id=:id") })
+
+public class Act implements IAct, Serializable {
 	public static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="book_id")
+	@JoinColumn(name = "book_id")
 	private IBook book;
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	@Column(name="description")
+	@Column(name = "description")
 	private String description;
+
 	/**
 	 * @param id
 	 * @param book
@@ -45,7 +52,7 @@ public class Act implements IAct, Serializable{
 		this.name = name;
 		this.description = description;
 	}
-	
+
 	protected Act() {
 		super();
 	}
@@ -114,7 +121,5 @@ public class Act implements IAct, Serializable{
 	public String toString() {
 		return "Act [id=" + id + ", book=" + book + ", name=" + name + ", description=" + description + "]";
 	}
-	
-	
-	
+
 }
