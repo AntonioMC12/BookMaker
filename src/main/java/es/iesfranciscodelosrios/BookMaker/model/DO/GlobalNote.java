@@ -10,13 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IGlobalNote;
 
 @Entity
 @Table(name="GlobalNote")
+@NamedQueries({
+	@NamedQuery(name="findBookNoteByName", query="SELECT gn FROM GlobalNote gn WHERE n.name=:name"),
+	@NamedQuery(name="getAllBookNotes", query="SELECT gn FROM GlobalNote gn WHERE n.book_id=:bookid")
+})
 public class GlobalNote implements IGlobalNote, Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -32,18 +37,25 @@ public class GlobalNote implements IGlobalNote, Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER) //Se trae el libro al traerse la GlobalNote
 	@JoinColumn(name="book_id") //Define el nombre de la columna que es la clave foranea
-	private IBook book;
+	private Book book;
 
 	public GlobalNote() {
-		
+		this(-1L, "", "", new Book());
 	}
 		
-	public GlobalNote(Long id, IBook book, String name, String content) {
+	public GlobalNote(String name, String content, Book book) {
 		super();
-		this.id = id;
-		this.book = book;
 		this.name = name;
 		this.content = content;
+		this.book = book;
+	}
+
+	public GlobalNote(Long id, String name, String content,  Book book) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.content = content;
+		this.book = book;
 	}
 
 	/**
@@ -65,14 +77,14 @@ public class GlobalNote implements IGlobalNote, Serializable{
 	/**
 	 * @return the book
 	 */
-	public IBook getBook() {
-		return book;
+	public Book getBook() {
+		return this.book;
 	}
 
 	/**
 	 * @param book the book to set
 	 */
-	public void setBook(IBook book) {
+	public void setBook(Book book) {
 		this.book = book;
 	}
 

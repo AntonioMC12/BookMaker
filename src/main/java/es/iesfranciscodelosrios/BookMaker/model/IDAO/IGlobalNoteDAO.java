@@ -1,7 +1,10 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDAO;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IGlobalNote;
+import java.util.List;
 
-public interface IGlobalNoteDAO extends IDAO<IGlobalNote, Long>{
+import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
+import es.iesfranciscodelosrios.BookMaker.model.DO.GlobalNote;
 
+public interface IGlobalNoteDAO extends IDAO<GlobalNote, Long>{
+	public List<GlobalNote> selectByName(String name) throws DAOException;
 }

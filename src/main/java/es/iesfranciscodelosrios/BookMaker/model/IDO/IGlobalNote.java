@@ -1,16 +1,18 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDO;
 
+import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
+
 public interface IGlobalNote {
 	
 	public void setId(Long id);
-	public void setBook(IBook book);
+	public void setBook(Book book);
 	public void setName(String name);
 	public void setContent(String content);
 
 
 	
 	public Long getId();
-	public IBook getBook();
+	public Book getBook();
 	public String getName();
 	public String getContent();
 
