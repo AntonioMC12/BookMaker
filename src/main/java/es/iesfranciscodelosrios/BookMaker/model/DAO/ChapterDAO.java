@@ -36,6 +36,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 	}
 
@@ -52,6 +54,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 
 	}
@@ -67,6 +71,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 	}
 
@@ -93,6 +99,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 		return result;
 	}
@@ -110,6 +118,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 
 		return capitulos;
@@ -128,6 +138,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 
 	}
@@ -145,6 +157,8 @@ public class ChapterDAO implements IChapterDAO {
 			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
 		} catch (RollbackException e) {
 			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
 		}
 
 		return capitulos;
