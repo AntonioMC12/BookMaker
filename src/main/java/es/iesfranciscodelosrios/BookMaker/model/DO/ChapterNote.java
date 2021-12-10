@@ -10,14 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapterNote;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.ICharacter;
 
 @Entity
 @Table(name="Chapter_Note")
+@NamedQueries({
+	@NamedQuery(name="findAll", query="Select cn FROM ChapterNote cn")
+	, @NamedQuery(name="findByName", query="SELECT cn FROM ChapterNote cn WHERE cn.name=:name")
+})
 public class ChapterNote implements IChapterNote, Serializable {
 	public static final long serialVersionUID = 1L;
 	
@@ -35,14 +40,14 @@ public class ChapterNote implements IChapterNote, Serializable {
 	private IChapter chapter;
 	
 	
-	protected ChapterNote(Long id, String name, String content) {
+	public ChapterNote(Long id, String name, String content) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.content = content;
 	}
 
-	protected ChapterNote() {
+	public ChapterNote() {
 		super();
 	}
 
