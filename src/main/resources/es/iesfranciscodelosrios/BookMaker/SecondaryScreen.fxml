@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="965.0" prefWidth="1330.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar fx:id="menuBar" layoutX="230.0" layoutY="57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+            <Menu fx:id="m_characters" mnemonicParsing="false" text="Personajes" />
+          <Menu fx:id="m_notes" mnemonicParsing="false" text="Notas" />
+        </menus>
+      </MenuBar>
+      <SplitPane fx:id="sp_main" dividerPositions="0.276355421686747, 0.7409638554216867" layoutX="283.0" layoutY="214.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+        <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="iv_logo" fitHeight="109.0" fitWidth="234.0" layoutX="65.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="20.0">
+                     <image>
+                        <Image url="@img/icono1.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="65.0" layoutY="152.0" text="Libro: " AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="150.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cb_selBook" layoutX="140.0" layoutY="151.0" prefWidth="150.0" promptText="Libro seleccionado" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="151.0" />
+                  <Label layoutX="70.0" layoutY="208.0" text="Acto:" AnchorPane.leftAnchor="69.0" AnchorPane.topAnchor="208.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cb_selAct" layoutX="140.0" layoutY="209.0" prefWidth="150.0" promptText="Eleccion" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="209.0" />
+                  <TableView fx:id="tv_chapters" layoutX="69.0" layoutY="267.0" prefHeight="205.0" prefWidth="223.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="267.0">
+                    <columns>
+                      <TableColumn fx:id="tc_chapName" prefWidth="119.0" text="Nombre" />
+                      <TableColumn fx:id="tc_chapState" prefWidth="114.0" text="Estado" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="b_newChapter" layoutX="90.0" layoutY="517.0" mnemonicParsing="false" text="Crear Capitulo" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="520.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_addReminder" layoutX="97.0" layoutY="606.0" mnemonicParsing="false" text="Recordatorio" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="620.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" text="Crear Acto" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="720.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="54.0" layoutY="59.0" text="CAPITULO:" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="60.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cb_selChapter" layoutX="294.0" layoutY="67.0" prefHeight="40.0" prefWidth="158.0" promptText="Capitulo Seleccionado" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="67.0" />
+                  <TextArea fx:id="ta_text" layoutX="147.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="230.0" />
+                  <Button fx:id="b_saveText" layoutX="77.0" layoutY="735.0" mnemonicParsing="false" text="Guardar" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="735.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_cancel" layoutX="191.0" layoutY="735.0" mnemonicParsing="false" text="Cancelar" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="735.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_back" layoutX="426.0" layoutY="738.0" mnemonicParsing="false" text="Volver" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="735.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="939.0" prefWidth="363.0">
+               <children>
+                  <Label layoutX="61.0" layoutY="59.0" text="Nombre Nota" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="ta_note" layoutX="71.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />
+                  <TableView fx:id="tv_notes" layoutX="71.0" layoutY="370.0" prefHeight="337.0" prefWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="370.0">
+                    <columns>
+                      <TableColumn fx:id="tc_noteName" prefWidth="109.0" text="Nombre" />
+                      <TableColumn fx:id="tc_NoteChapter" prefWidth="111.0" text="Capitulo" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="b_saveNote" layoutX="60.0" layoutY="734.0" mnemonicParsing="false" prefWidth="90.0" text="Guardar" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="735.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_delNote" layoutX="195.0" layoutY="738.0" mnemonicParsing="false" prefWidth="90.0" text="Borrar" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="735.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

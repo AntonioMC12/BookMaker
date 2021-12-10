@@ -22,7 +22,10 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 
 @Entity
 @Table(name = "Book")
-@NamedQueries({ @NamedQuery(name = "findById", query = "SELECT a FROM Book a WHERE a.id =:id") })
+@NamedQueries({ 
+	@NamedQuery(name = "findBookById", query = "SELECT b FROM Book b WHERE b.id =:id"), 
+	@NamedQuery(name = "getAllBooks", query="SELECT b FROM Book b")
+	})
 public class Book implements IBook, Serializable {
 
 	private static final long serialVersionUID = 1L;

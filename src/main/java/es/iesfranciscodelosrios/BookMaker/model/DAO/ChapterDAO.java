@@ -11,9 +11,7 @@ import javax.persistence.TypedQuery;
 
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
-import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IChapterDAO;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 
 
@@ -25,7 +23,7 @@ public class ChapterDAO implements IChapterDAO {
 	}
 
 	@Override
-	public void save(IChapter a) throws DAOException {
+	public void save(Chapter a) throws DAOException {
 		EntityManager em=createEM();
 		try {
 			em.getTransaction().begin();
@@ -43,26 +41,12 @@ public class ChapterDAO implements IChapterDAO {
 	}
 
 	@Override
-	public void edit(IChapter a) throws DAOException {
-		Chapter aux = new Chapter();
-		EntityManager em = createEM();
-		try {
-			aux = em.find(Chapter.class, a);
-			em.getTransaction().begin();
-			em.merge(aux);
-			em.getTransaction().commit();
-		} catch (IllegalStateException e) {
-			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
-		} catch (RollbackException e) {
-			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
-		} catch(Exception e){
-			throw new DAOException ("Ha ocurrido un error.", e);
-		}
-
+	public void edit(Chapter a) throws DAOException {
+		save(a);
 	}
 
 	@Override
-	public void delete(IChapter a) throws DAOException {
+	public void delete(Chapter a) throws DAOException {
 		EntityManager em =createEM();
 		try {
 			em.getTransaction().begin();
@@ -78,19 +62,27 @@ public class ChapterDAO implements IChapterDAO {
 	}
 
 	@Override
-	public List<IChapter> showAll() throws DAOException {
-		/**List<IChapter> capitulos=new ArrayList<IChapter>();
+	public List<Chapter> showAll() throws DAOException {
+		List<Chapter> capitulos=new ArrayList<Chapter>();
 		EntityManager em =createEM();
-		em.getTransaction().begin();
-		TypedQuery<Chapter> q=em.createNamedQuery("findAll", Chapter.class);
-		capitulos=q.getResultList();
-		em.getTransaction().commit();
-		return capitulos;*/
-		return null;
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Chapter> q=em.createNamedQuery("findAllChapters", Chapter.class);
+			capitulos=q.getResultList();
+			em.getTransaction().commit();
+		} catch (IllegalStateException e) {
+			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
+		} catch (RollbackException e) {
+			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
+		} catch(Exception e){
+			throw new DAOException ("Ha ocurrido un error.", e);
+		}
+
+		return capitulos;
 	}
 
 	@Override
-	public IChapter show(Long id) throws DAOException {
+	public Chapter show(Long id) throws DAOException {
 		Chapter result=null;
 		EntityManager em=createEM();
 		try {
@@ -106,51 +98,12 @@ public class ChapterDAO implements IChapterDAO {
 		return result;
 	}
 	
-	//seria el showall
-	public static List<Chapter> getAll() throws DAOException{
-		List<Chapter> capitulos=new ArrayList<Chapter>();
-		EntityManager em =createEM();
-		try {
-			em.getTransaction().begin();
-			TypedQuery<Chapter> q=em.createNamedQuery("findAll", Chapter.class);
-			capitulos=q.getResultList();
-			em.getTransaction().commit();
-		} catch (IllegalStateException e) {
-			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
-		} catch (RollbackException e) {
-			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
-		} catch(Exception e){
-			throw new DAOException ("Ha ocurrido un error.", e);
-		}
-
-		return capitulos;
-	}
-	
-	
-	public static void addChapterNote(Chapter c, ChapterNote cn) throws DAOException {
-		EntityManager em = createEM();
-		try {
-			em.getTransaction().begin();
-			Chapter aux=em.merge(c);
-			cn.setChapter(aux);
-			aux.getNotesChapter().add(cn);
-			em.getTransaction().commit();
-		} catch (IllegalStateException e) {
-			throw new DAOException ("Error, transacción en curso y no puede comenzar otra", e);
-		} catch (RollbackException e) {
-			throw new DAOException ("Error en la transacción. Deshaciendo Cambios", e);
-		} catch(Exception e){
-			throw new DAOException ("Ha ocurrido un error.", e);
-		}
-
-	}
-	
 	public static List<Chapter> selectedByName(String name) throws DAOException{
 		List<Chapter> capitulos = new ArrayList<Chapter>();
 		EntityManager em = createEM();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Chapter> q=em.createNamedQuery("findByName", Chapter.class);
+			TypedQuery<Chapter> q=em.createNamedQuery("findChapterByName", Chapter.class);
 			q.setParameter("name", name);
 			capitulos = q.getResultList();
 			em.getTransaction().commit();
@@ -164,7 +117,5 @@ public class ChapterDAO implements IChapterDAO {
 
 		return capitulos;
 	}
-	
-
 
 }

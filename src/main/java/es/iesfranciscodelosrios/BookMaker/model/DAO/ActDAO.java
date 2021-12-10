@@ -70,7 +70,7 @@ public class ActDAO implements IActDAO {
 		List<Act> acts = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			acts = em.createQuery("SELECT ac FROM Act ac", Act.class).getResultList();
+			acts = em.createQuery("findAllActs", Act.class).getResultList();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

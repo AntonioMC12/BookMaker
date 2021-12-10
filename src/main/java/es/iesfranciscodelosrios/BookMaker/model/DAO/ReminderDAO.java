@@ -70,7 +70,7 @@ public class ReminderDAO implements IReminderDAO {
 		List<Reminder> reminders = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			reminders = em.createQuery("SELECT re FROM Reminder re", Reminder.class).getResultList();
+			reminders = em.createQuery("findAllReminders", Reminder.class).getResultList();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

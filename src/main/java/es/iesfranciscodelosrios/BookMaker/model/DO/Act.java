@@ -19,9 +19,9 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
 
 @Entity
 @Table(name = "Act")
-@NamedQueries({ @NamedQuery(name = "findAll", query = "SELECT * FROM Act"),
-		@NamedQuery(name = "findByName", query = "SELECT ac FROM Act ac WHERE ac.name=:name"),
-		@NamedQuery(name = "findById", query = "SELECT ac FROM Act ac WHERE ac.id=:id") })
+@NamedQueries({ @NamedQuery(name = "findAllActs", query = "SELECT ac FROM Act ac"),
+		@NamedQuery(name = "findActByName", query = "SELECT ac FROM Act ac WHERE ac.name=:name"),
+		@NamedQuery(name = "findActById", query = "SELECT ac FROM Act ac WHERE ac.id=:id") })
 
 public class Act implements IAct, Serializable {
 	public static final long serialVersionUID = 1L;
