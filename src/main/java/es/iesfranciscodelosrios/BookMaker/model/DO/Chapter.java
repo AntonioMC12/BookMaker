@@ -2,7 +2,6 @@ package es.iesfranciscodelosrios.BookMaker.model.DO;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +24,10 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapterNote;
 
 @Entity
 @Table(name="Chapter")
+@NamedQueries({
+	@NamedQuery(name="findAll", query="SELECT * FROM Chapter")
+, @NamedQuery(name="findByName", query="SELECT c FROM Chapter c WHERE c.name=:name")
+})
 public class Chapter implements IChapter, Serializable {
 	public static final long serialVersionUID = 1L;
 	
@@ -44,7 +49,7 @@ public class Chapter implements IChapter, Serializable {
 	
 	
 	
-	protected Chapter(Long id, String name, String text, IAct act, List<IChapterNote> notesChapter) {
+	public Chapter(Long id, String name, String text, IAct act, List<IChapterNote> notesChapter) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,7 +58,7 @@ public class Chapter implements IChapter, Serializable {
 		this.notesChapter = notesChapter;
 	}
 
-	protected Chapter() {
+	public Chapter() {
 		super();
 	}
 	
