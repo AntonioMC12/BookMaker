@@ -31,8 +31,11 @@ public class User implements IUser, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
 	@Column(name = "id")
 	private Long id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "password")
 	private String password;
+	@Column(name = "mail")
 	private String mail;
 
 	// para 1:N siendo autor la tabla 1
