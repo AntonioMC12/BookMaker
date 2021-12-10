@@ -24,8 +24,11 @@ public class Character implements ICharacter, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
 	@Column(name = "id")
 	private Long id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "description")
 	private String description;
+	@Column(name = "rol")
 	private String rol;
 
 	@ManyToMany(mappedBy = "book")

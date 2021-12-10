@@ -1,9 +1,12 @@
 package es.iesfranciscodelosrios.BookMaker.model.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TransactionRequiredException;
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IActDAO;
@@ -18,10 +21,22 @@ public class ActDAO implements IActDAO {
 
 	@Override
 	public void save(Act ac) throws DAOException {
-		EntityManager em = createEM();
-		em.getTransaction().begin();
-		em.persist(ac);
-		em.getTransaction().commit();
+		try {
+			EntityManager em = createEM();
+			em.getTransaction().begin();
+			em.persist(ac);
+			em.getTransaction().commit();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
 	}
 
 	@Override
@@ -31,26 +46,64 @@ public class ActDAO implements IActDAO {
 
 	@Override
 	public void delete(Act ac) throws DAOException {
-		EntityManager em = createEM();
-		em.getTransaction().begin();
-		em.remove(ac);
-		em.getTransaction().commit();
+		try {
+			EntityManager em = createEM();
+			em.getTransaction().begin();
+			em.remove(ac);
+			em.getTransaction().commit();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
 
 	}
 
 	@Override
 	public List<Act> showAll() throws DAOException {
-		EntityManager em = createEM();
-		return em.createQuery("SELECT ac FROM Act ac", Act.class).getResultList();
+		List<Act> acts = new ArrayList<>();
+		try {
+			EntityManager em = createEM();
+			acts = em.createQuery("SELECT ac FROM Act ac", Act.class).getResultList();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
+		return acts;
 	}
 
 	@Override
 	public Act show(Long id) throws DAOException {
 		Act result = null;
-		EntityManager em = createEM();
-		em.getTransaction().begin();
-		result = em.find(Act.class, id);
-		em.getTransaction().commit();
+		try {
+			EntityManager em = createEM();
+			em.getTransaction().begin();
+			result = em.find(Act.class, id);
+			em.getTransaction().commit();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
 		return result;
 	}
 }

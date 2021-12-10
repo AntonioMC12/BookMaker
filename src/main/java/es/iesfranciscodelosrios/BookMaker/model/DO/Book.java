@@ -33,8 +33,11 @@ public class Book implements IBook, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // autoincrement
 	@Column(name = "id")
 	private Long id;
+	@Column(name = "tittle")
 	private String tittle;
+	@Column(name = "summary")
 	private String summary;
+	@Column(name = "genre")
 	private String genre;
 
 	// para 1:N siendo libro la tabla N

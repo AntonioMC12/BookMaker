@@ -14,12 +14,13 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IChapterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
+import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 
 
 
 public class ChapterDAO implements IChapterDAO {
 	public static EntityManager createEM() {
-		EntityManagerFactory emf=PersistenceUnit.getInstance();
+		EntityManagerFactory emf = PersistenceUnit.getInstance();
 		return emf.createEntityManager();
 	}
 
