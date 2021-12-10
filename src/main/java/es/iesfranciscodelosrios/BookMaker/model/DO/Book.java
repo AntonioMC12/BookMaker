@@ -19,8 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.ICharacter;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IUser;
 
 @Entity
 @Table(name = "Book")
@@ -45,13 +43,13 @@ public class Book implements IBook, Serializable {
 	// para cambiar poner (fetch = )
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
-	private IUser user;
+	private User user;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "character_id", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "character_id"))
-	private List<ICharacter> characters;
+	private List<Character> characters;
 
-	public Book(String tittle, String summary, String genre, IUser user, List<ICharacter> characters) {
+	public Book(String tittle, String summary, String genre, User user, List<Character> characters) {
 		this.id = -1L;
 		this.tittle = tittle;
 		this.summary = summary;
@@ -110,22 +108,22 @@ public class Book implements IBook, Serializable {
 	}
 
 	@Override
-	public IUser getUser() {
+	public User getUser() {
 		return user;
 	}
 
 	@Override
-	public void setUser(IUser user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
 	@Override
-	public List<ICharacter> getCharacters() {
+	public List<Character> getCharacters() {
 		return characters;
 	}
 
 	@Override
-	public void setCharacters(List<ICharacter> characters) {
+	public void setCharacters(List<Character> characters) {
 		this.characters = characters;
 	}
 

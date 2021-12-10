@@ -17,9 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapterNote;
+
 
 
 @Entity
@@ -42,14 +41,14 @@ public class Chapter implements IChapter, Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name="act_id")
-	private IAct act;
+	private Act act;
 	
 	@OneToMany(mappedBy="Chapter", cascade=CascadeType.REMOVE, orphanRemoval = true)
-	private List<IChapterNote> notesChapter;
+	private List<ChapterNote> notesChapter;
 	
 	
 	
-	public Chapter(Long id, String name, String text, IAct act, List<IChapterNote> notesChapter) {
+	public Chapter(Long id, String name, String text, Act act, List<ChapterNote> notesChapter) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -82,22 +81,22 @@ public class Chapter implements IChapter, Serializable {
 	}
 
 	@Override
-	public IAct getAct() {
+	public Act getAct() {
 		return act;
 	}
 
 	@Override
-	public void setAct(IAct act) {
+	public void setAct(Act act) {
 		this.act = act;
 	}
 
 	@Override
-	public List<IChapterNote> getNotesChapter() {
+	public List<ChapterNote> getNotesChapter() {
 		return notesChapter;
 	}
 
 	@Override
-	public void setNotesChapter(List<IChapterNote> notesChapter) {
+	public void setNotesChapter(List<ChapterNote> notesChapter) {
 		this.notesChapter = notesChapter;
 	}
 

@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.ICharacter;
 
 @Entity
@@ -32,9 +31,9 @@ public class Character implements ICharacter, Serializable {
 	private String rol;
 
 	@ManyToMany(mappedBy = "book")
-	private List<IBook> books;
+	private List<Book> books;
 
-	public Character(String name, String description, String rol, List<IBook> books) {
+	public Character(String name, String description, String rol, List<Book> books) {
 		this.id = -1L;
 		this.name = name;
 		this.description = description;
@@ -117,14 +116,14 @@ public class Character implements ICharacter, Serializable {
 	/**
 	 * @return the books
 	 */
-	public List<IBook> getBooks() {
+	public List<Book> getBooks() {
 		return books;
 	}
 
 	/**
 	 * @param books the books to set
 	 */
-	public void setBooks(List<IBook> books) {
+	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
 

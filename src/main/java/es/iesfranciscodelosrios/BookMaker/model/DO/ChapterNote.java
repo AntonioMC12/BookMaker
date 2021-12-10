@@ -14,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapterNote;
 
 @Entity
@@ -37,7 +36,7 @@ public class ChapterNote implements IChapterNote, Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name="chapter_id")
-	private IChapter chapter;
+	private Chapter chapter;
 	
 	
 	public ChapterNote(Long id, String name, String content) {
@@ -84,12 +83,12 @@ public class ChapterNote implements IChapterNote, Serializable {
 		
 
 	@Override
-	public IChapter getChapter() {
+	public Chapter getChapter() {
 		return chapter;
 	}
 
 	@Override
-	public void setChapter(IChapter chapter) {
+	public void setChapter(Chapter chapter) {
 		this.chapter = chapter;
 	}
 

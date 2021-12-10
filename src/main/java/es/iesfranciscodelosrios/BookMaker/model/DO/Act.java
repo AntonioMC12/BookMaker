@@ -16,7 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 
 @Entity
 @Table(name = "Act")
@@ -33,7 +32,7 @@ public class Act implements IAct, Serializable {
 	private Long id;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_id")
-	private IBook book;
+	private Book book;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "description")
@@ -45,7 +44,7 @@ public class Act implements IAct, Serializable {
 	 * @param name
 	 * @param description
 	 */
-	protected Act(Long id, IBook book, String name, String description) {
+	protected Act(Long id, Book book, String name, String description) {
 		super();
 		this.id = id;
 		this.book = book;
@@ -75,11 +74,11 @@ public class Act implements IAct, Serializable {
 		this.id = id;
 	}
 
-	public IBook getBook() {
+	public Book getBook() {
 		return book;
 	}
 
-	public void setBook(IBook book) {
+	public void setBook(Book book) {
 		this.book = book;
 	}
 

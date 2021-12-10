@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IReminder;
 
 @Entity
@@ -32,7 +31,7 @@ public class Reminder implements IReminder, Serializable {
 	private Long id;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_id")
-	private IBook book;
+	private Book book;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "text")
@@ -47,7 +46,7 @@ public class Reminder implements IReminder, Serializable {
 	 * @param text
 	 * @param chapterIndex
 	 */
-	protected Reminder(Long id, IBook book, String name, String text, int chapterIndex) {
+	protected Reminder(Long id, Book book, String name, String text, int chapterIndex) {
 		super();
 		this.id = id;
 		this.book = book;
@@ -68,11 +67,11 @@ public class Reminder implements IReminder, Serializable {
 		this.id = id;
 	}
 
-	public IBook getBook() {
+	public Book getBook() {
 		return book;
 	}
 
-	public void setBook(IBook book) {
+	public void setBook(Book book) {
 		this.book = book;
 	}
 
