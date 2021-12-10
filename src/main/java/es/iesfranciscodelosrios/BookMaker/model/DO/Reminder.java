@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
@@ -18,6 +20,9 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IReminder;
 
 @Entity
 @Table(name = "Reminder")
+@NamedQueries({ @NamedQuery(name = "findAll", query = "SELECT * FROM Reminder"),
+	@NamedQuery(name = "findByName", query = "SELECT re FROM Reminder re WHERE re.name=:name"),
+	@NamedQuery(name = "findById", query = "SELECT re FROM Reminder re WHERE re.id=:id") })
 public class Reminder implements IReminder, Serializable {
 	public static final long serialVersionUID = 1L;
 

@@ -1,7 +1,7 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDAO;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IAct;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 
-public interface IActDAO extends IDAO<IAct, Long>{
+public interface IActDAO extends IDAO<Act, Long>{
 
 }
