@@ -1,7 +1,10 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDAO;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IUser;
+import java.util.List;
 
-public interface IUserDAO extends IDAO<IUser, Long>{
+import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
+import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 
+public interface IUserDAO extends IDAO<User, Long>{
+	public List<User> selectByName(String name) throws DAOException;
 }

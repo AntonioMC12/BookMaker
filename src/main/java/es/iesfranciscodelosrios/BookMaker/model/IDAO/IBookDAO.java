@@ -1,7 +1,7 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDAO;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 
-public interface IBookDAO extends IDAO<IBook, Long>{
+public interface IBookDAO extends IDAO<Book, Long>{
 
 }
