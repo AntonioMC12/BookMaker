@@ -153,4 +153,34 @@ public class UserDAO implements IUserDAO {
 	public void edit(User a) throws DAOException {
 		save(a);
 	}
+	
+	//HECHO POR NICO PARA LOGIN, REVISAR SI GUSTA
+	
+	public User selectByEmailAndPass(String mail, String password) throws DAOException {
+		User user = new User();
+		EntityManager em = createEM();
+
+		try {
+			em.getTransaction().begin();
+			TypedQuery<User> q = em.createNamedQuery("getUserByMailAndPass", User.class);
+			q.setParameter("mail", mail);
+			q.setParameter("password", password);
+			user = q.getSingleResult();
+			em.getTransaction().commit();
+		} catch (EntityExistsException e) {
+			throw new DAOException("Error, la entidad ya existe");
+		} catch (IllegalStateException e) {
+			throw new DAOException("Error de estado, puede ser del begin, el commit o el resultList", e);
+		} catch (RollbackException e) {
+			throw new DAOException("Error al hacer el commit de la transaccion. Deshaciendo cambios...", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Error, no hay una transaccion empezada al hacer el persist", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("La query es invalida o no se ha definido", e);
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+
+		return user;
+	}
 }
