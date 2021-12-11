@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
@@ -47,9 +48,20 @@ public class Book implements IBook, Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	
+	// para 1:N siendo globalnotes la tabla 1
+	// mappedBy apunta al campo java de la clase many
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<GlobalNote> globalNotes;
+	
+	// para 1:N siendo reminders la tabla 1
+	// mappedBy apunta al campo java de la clase many
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Reminder> reminders;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "character_id", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "character_id"))
+	@JoinTable(name = "character_id", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "character_id"))
 	private List<Character> characters;
 
 	public Book(String tittle, String summary, String genre, User user, List<Character> characters) {
@@ -82,6 +94,31 @@ public class Book implements IBook, Serializable {
 		this.tittle = tittle;
 		this.summary = summary;
 		this.genre = genre;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override
@@ -143,5 +180,12 @@ public class Book implements IBook, Serializable {
 	public void setCharacters(List<Character> characters) {
 		this.characters = characters;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", tittle=" + tittle + ", summary=" + summary + ", genre=" +", characters=" + characters + "]";
+	}
+	
+	
 
 }

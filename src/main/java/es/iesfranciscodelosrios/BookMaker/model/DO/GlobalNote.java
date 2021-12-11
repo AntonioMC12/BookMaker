@@ -19,8 +19,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IGlobalNote;
 @Entity
 @Table(name="GlobalNote")
 @NamedQueries({
-	@NamedQuery(name="findGlobalNoteByName", query="SELECT gn FROM GlobalNote gn WHERE n.name=:name"),
-	@NamedQuery(name="getAllGlobalNotes", query="SELECT gn FROM GlobalNote gn WHERE n.book_id=:bookid")
+	@NamedQuery(name="findGlobalNoteByName", query="SELECT gn FROM GlobalNote gn WHERE gn.name =: name"),
+	@NamedQuery(name="getAllGlobalNotes", query="SELECT gn FROM GlobalNote gn WHERE gn.book =: book")
 })
 public class GlobalNote implements IGlobalNote, Serializable{
 	
@@ -56,6 +56,31 @@ public class GlobalNote implements IGlobalNote, Serializable{
 		this.name = name;
 		this.content = content;
 		this.book = book;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GlobalNote other = (GlobalNote) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	/**
@@ -120,4 +145,8 @@ public class GlobalNote implements IGlobalNote, Serializable{
 		this.content = content;
 	}
 
+	@Override
+	public String toString() {
+		return "GlobalNote [id=" + id + ", name=" + name + ", content=" + content + ", book=" + book + "]";
+	}
 }

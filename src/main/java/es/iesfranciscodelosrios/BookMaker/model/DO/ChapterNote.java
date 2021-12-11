@@ -20,7 +20,7 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapterNote;
 @Table(name="Chapter_Note")
 @NamedQueries({
 	@NamedQuery(name="findAllChapterNotes", query="Select cn FROM ChapterNote cn")
-	, @NamedQuery(name="findChapterByName", query="SELECT cn FROM ChapterNote cn WHERE cn.name=:name")
+	, @NamedQuery(name="findChapterNoteByName", query="SELECT cn FROM ChapterNote cn WHERE cn.name=:name")
 })
 public class ChapterNote implements IChapterNote, Serializable {
 	public static final long serialVersionUID = 1L;
@@ -44,6 +44,13 @@ public class ChapterNote implements IChapterNote, Serializable {
 		this.id = id;
 		this.name = name;
 		this.content = content;
+	}
+
+	public ChapterNote(String name, String content, Chapter chapter) {
+		super();
+		this.name = name;
+		this.content = content;
+		this.chapter = chapter;
 	}
 
 	public ChapterNote() {

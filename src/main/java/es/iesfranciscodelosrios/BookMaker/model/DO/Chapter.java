@@ -43,7 +43,7 @@ public class Chapter implements IChapter, Serializable {
 	@JoinColumn (name="act_id")
 	private Act act;
 	
-	@OneToMany(mappedBy="Chapter", cascade=CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(mappedBy="chapter", cascade=CascadeType.REMOVE, orphanRemoval = true)
 	private List<ChapterNote> notesChapter;
 	
 	
@@ -51,6 +51,14 @@ public class Chapter implements IChapter, Serializable {
 	public Chapter(Long id, String name, String text, Act act, List<ChapterNote> notesChapter) {
 		super();
 		this.id = id;
+		this.name = name;
+		this.text = text;
+		this.act = act;
+		this.notesChapter = notesChapter;
+	}
+
+	public Chapter(String name, String text, Act act, List<ChapterNote> notesChapter) {
+		super();
 		this.name = name;
 		this.text = text;
 		this.act = act;
