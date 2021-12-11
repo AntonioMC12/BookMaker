@@ -24,8 +24,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
 @Entity
 @Table(name="Chapter")
 @NamedQueries({
-	@NamedQuery(name="findAll", query="SELECT * FROM Chapter")
-, @NamedQuery(name="findByName", query="SELECT c FROM Chapter c WHERE c.name=:name")
+	@NamedQuery(name="findAllChapters", query="SELECT c FROM Chapter c")
+, @NamedQuery(name="findChapterByName", query="SELECT c FROM Chapter c WHERE c.name=:name")
 })
 public class Chapter implements IChapter, Serializable {
 	public static final long serialVersionUID = 1L;

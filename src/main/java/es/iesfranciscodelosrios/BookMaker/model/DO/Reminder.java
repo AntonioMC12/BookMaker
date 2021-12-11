@@ -19,9 +19,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IReminder;
 
 @Entity
 @Table(name = "Reminder")
-@NamedQueries({ @NamedQuery(name = "findAll", query = "SELECT * FROM Reminder"),
-	@NamedQuery(name = "findByName", query = "SELECT re FROM Reminder re WHERE re.name=:name"),
-	@NamedQuery(name = "findById", query = "SELECT re FROM Reminder re WHERE re.id=:id") })
+@NamedQueries({ @NamedQuery(name = "findAllReminders", query = "SELECT re FROM Reminder re")
+	})
 public class Reminder implements IReminder, Serializable {
 	public static final long serialVersionUID = 1L;
 

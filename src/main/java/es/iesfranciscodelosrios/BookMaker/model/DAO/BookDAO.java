@@ -71,7 +71,7 @@ public class BookDAO implements IBookDAO {
 		List<Book> books = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			books = em.createQuery("SELECT a FROM Book a", Book.class).getResultList();
+			books = em.createQuery("getAllBooks", Book.class).getResultList();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

@@ -9,12 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDO.ICharacter;
 
 @Entity
 @Table(name = "Character")
+@NamedQueries({
+	@NamedQuery(name="getCharacterByName", query="SELECT ch FROM Character ch WHERE ch.name=:name"),
+	@NamedQuery(name="getAllCharacters", query="SELECT ch FROM Character ch")
+})
 public class Character implements ICharacter, Serializable {
 
 	static final long serialVersionUID = 1L;

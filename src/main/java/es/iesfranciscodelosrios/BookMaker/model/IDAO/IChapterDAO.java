@@ -1,7 +1,7 @@
 package es.iesfranciscodelosrios.BookMaker.model.IDAO;
 
-import es.iesfranciscodelosrios.BookMaker.model.IDO.IChapter;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 
-public interface IChapterDAO extends IDAO<IChapter, Long> {
+public interface IChapterDAO extends IDAO<Chapter, Long> {
 
 }

@@ -102,7 +102,7 @@ public class GlobalNoteDAO implements IGlobalNoteDAO{
 		
 		try {
 			em.getTransaction().begin();
-			TypedQuery<GlobalNote> q=em.createNamedQuery("getAllBookNotes", GlobalNote.class);
+			TypedQuery<GlobalNote> q=em.createNamedQuery("getAllGlobalNotes", GlobalNote.class);
 			q.setParameter("bookid", bookId);
 			bookNotes=q.getResultList();
 			em.getTransaction().commit();			
@@ -129,7 +129,7 @@ public class GlobalNoteDAO implements IGlobalNoteDAO{
 		
 		try {
 			em.getTransaction().begin();
-			TypedQuery<GlobalNote> q=em.createNamedQuery("findBookNoteByName", GlobalNote.class);
+			TypedQuery<GlobalNote> q=em.createNamedQuery("findGlobalNoteByName", GlobalNote.class);
 			q.setParameter("name", name);
 			bookNotes=q.getResultList();
 			em.getTransaction().commit();			
