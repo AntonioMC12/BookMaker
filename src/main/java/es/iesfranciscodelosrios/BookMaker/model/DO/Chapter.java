@@ -38,6 +38,8 @@ public class Chapter implements IChapter, Serializable {
 	private String name;
 	@Column(name="text")
 	private String text;
+	@Column(name="state")
+	private String state;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn (name="act_id")
@@ -48,19 +50,21 @@ public class Chapter implements IChapter, Serializable {
 	
 	
 	
-	public Chapter(Long id, String name, String text, Act act, List<ChapterNote> notesChapter) {
+	public Chapter(Long id, String name, String text, String state, Act act, List<ChapterNote> notesChapter) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.text = text;
+		this.state = state;
 		this.act = act;
 		this.notesChapter = notesChapter;
 	}
 
-	public Chapter(String name, String text, Act act, List<ChapterNote> notesChapter) {
+	public Chapter(String name, String text, String state, Act act, List<ChapterNote> notesChapter) {
 		super();
 		this.name = name;
 		this.text = text;
+		this.state = state;
 		this.act = act;
 		this.notesChapter = notesChapter;
 	}
@@ -96,6 +100,14 @@ public class Chapter implements IChapter, Serializable {
 	@Override
 	public void setAct(Act act) {
 		this.act = act;
+	}
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	@Override
@@ -159,11 +171,7 @@ public class Chapter implements IChapter, Serializable {
 
 	@Override
 	public String toString() {
-		return "Chapter [id=" + id + ", name=" + name + ", text=" + text + ", act=" + act + ", notesChapter="
-				+ notesChapter + "]";
+		return "Chapter [id=" + id + ", name=" + name + ", text=" + text + ", state=" + state + ", act=" + act
+				+ ", notesChapter=" + notesChapter + "]";
 	}
-
-	
-	
-
 }
