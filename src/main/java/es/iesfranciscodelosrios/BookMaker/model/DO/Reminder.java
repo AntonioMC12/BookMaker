@@ -28,9 +28,6 @@ public class Reminder implements IReminder, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "book_id")
-	private Book book;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "text")
@@ -38,6 +35,9 @@ public class Reminder implements IReminder, Serializable {
 	@Column(name = "chapterIndex")
 	private int chapterIndex;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id")
+	private Book book;
 	/**
 	 * @param id
 	 * @param book

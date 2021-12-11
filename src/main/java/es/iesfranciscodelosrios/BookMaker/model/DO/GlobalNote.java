@@ -19,8 +19,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IGlobalNote;
 @Entity
 @Table(name="GlobalNote")
 @NamedQueries({
-	@NamedQuery(name="findGlobalNoteByName", query="SELECT gn FROM GlobalNote gn WHERE n.name=:name"),
-	@NamedQuery(name="getAllGlobalNotes", query="SELECT gn FROM GlobalNote gn WHERE n.book_id=:bookid")
+	@NamedQuery(name="findGlobalNoteByName", query="SELECT gn FROM GlobalNote gn WHERE gn.name =: name"),
+	//@NamedQuery(name="getAllGlobalNotes", query="SELECT gn FROM GlobalNote gn ")
 })
 public class GlobalNote implements IGlobalNote, Serializable{
 	
