@@ -21,7 +21,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IUser;
 @Table(name = "User")
 @NamedQueries({
 	@NamedQuery(name="getUserByName", query="SELECT u FROM User u WHERE u.name=:name"),
-	@NamedQuery(name="getAllUsers", query="SELECT u FROM User u")
+	@NamedQuery(name="getAllUsers", query="SELECT u FROM User u"),
+	@NamedQuery(name="getUserByMailAndPass", query="SELECT u FROM User u WHERE u.mail=:mail AND u.password=:password")
 })
 public class User implements IUser, Serializable {
 
@@ -62,6 +63,19 @@ public class User implements IUser, Serializable {
 		this.password = password;
 		this.mail = mail;
 		this.books = books;
+	}
+	
+	public User(String name, String password, String mail) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.mail = mail;
+	}
+	
+	public User(String password, String mail) {
+		super();
+		this.password = password;
+		this.mail = mail;
 	}
 
 	/**
