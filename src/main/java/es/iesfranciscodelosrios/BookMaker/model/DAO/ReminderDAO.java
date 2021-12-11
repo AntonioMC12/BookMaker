@@ -14,9 +14,18 @@ import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 
 public class ReminderDAO implements IReminderDAO {
 
+	private static EntityManager em;
+	
 	public static EntityManager createEM() {
-		EntityManagerFactory emf = PersistenceUnit.getInstance();
-		return emf.createEntityManager();
+		/*
+		if(em==null) {
+			EntityManagerFactory emf = PersistenceUnit.getInstance();
+			em=emf.createEntityManager();
+			return em;			
+		}else {
+			return em;
+		}*/
+		return PersistenceUnit.getEM();
 	}
 
 	@Override
@@ -42,14 +51,14 @@ public class ReminderDAO implements IReminderDAO {
 	@Override
 	public void edit(Reminder re) throws DAOException {
 		save(re);
-
 	}
 
 	@Override
 	public void delete(Reminder re) throws DAOException {
+		EntityManager em = createEM();
 		try {
-			EntityManager em = createEM();
 			em.getTransaction().begin();
+			em.merge(re);
 			em.remove(re);
 			em.getTransaction().commit();
 		} catch (IllegalStateException e) {
@@ -90,9 +99,9 @@ public class ReminderDAO implements IReminderDAO {
 		Reminder result = null;
 		try {
 			EntityManager em = createEM();
-			em.getTransaction().begin();
+			//em.getTransaction().begin();
 			result = em.find(Reminder.class, id);
-			em.getTransaction().commit();
+			//em.getTransaction().commit();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

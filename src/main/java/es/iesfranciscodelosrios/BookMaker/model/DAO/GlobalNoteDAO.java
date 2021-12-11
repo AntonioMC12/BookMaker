@@ -11,14 +11,15 @@ import javax.persistence.RollbackException;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
 
+import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.GlobalNote;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IGlobalNoteDAO;
+import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 
 public class GlobalNoteDAO implements IGlobalNoteDAO{
 	public static EntityManager createEM() {
-		EntityManagerFactory emf=Utils.getInstance();
-		return emf.createEntityManager();
+		return PersistenceUnit.getEM();
 	}
 	
 	public static EntityTransaction beginSession() {
@@ -96,14 +97,14 @@ public class GlobalNoteDAO implements IGlobalNoteDAO{
 		return result;
 	}
 	
-	public static List<GlobalNote> getAllBookNotes(String bookId) throws DAOException {
+	public List<GlobalNote> getAllBookNotes(Book book) throws DAOException {
 		List<GlobalNote> bookNotes=new ArrayList<GlobalNote>();
 		EntityManager em=createEM();
 		
 		try {
 			em.getTransaction().begin();
 			TypedQuery<GlobalNote> q=em.createNamedQuery("getAllGlobalNotes", GlobalNote.class);
-			q.setParameter("bookid", bookId);
+			q.setParameter("book", book);
 			bookNotes=q.getResultList();
 			em.getTransaction().commit();			
 		}catch(EntityExistsException e) {
