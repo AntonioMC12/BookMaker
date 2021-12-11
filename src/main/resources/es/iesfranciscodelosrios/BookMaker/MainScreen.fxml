@@ -43,7 +43,7 @@
                   <Image url="@img/logo2.png" />
                </image>
             </ImageView>
-            <Button fx:id="btn_newBook" layoutX="27.0" layoutY="350.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="NUEVO LIBRO" />
+            <Button fx:id="btn_newBook" layoutX="27.0" layoutY="350.0" mnemonicParsing="false" onAction="#crearLibroButton" prefHeight="48.0" prefWidth="145.0" text="NUEVO LIBRO" />
             <Button fx:id="btn_delete" layoutX="25.0" layoutY="427.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="BORRAR" />
             <Button fx:id="btn_export" layoutX="26.0" layoutY="514.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="EXPORTAR" />
             <Button fx:id="btn_continue" layoutX="26.0" layoutY="592.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="SEGUIR EDITANDO" />
@@ -61,7 +61,7 @@
             <TableView fx:id="tbl_books" layoutX="35.0" layoutY="105.0" prefHeight="827.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
               <columns>
                 <TableColumn fx:id="col_bookName" prefWidth="254.4000244140625" text="NOMBRE" />
-                <TableColumn fx:id="col_bookDate" prefWidth="363.99993896484375" text="MODIFICACIÓN" />
+                <TableColumn fx:id="col_bookGenre" prefWidth="363.99993896484375" text="GENERO" />
                   <TableColumn fx:id="col_bookSummary" prefWidth="418.4000549316406" text="RESUMEN" />
               </columns>
             </TableView>
@@ -87,7 +87,7 @@
                </font>
             </Label>
             <Button fx:id="btn_removeUser" layoutX="29.0" layoutY="415.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="BORRAR USUARIO" />
-            <Button fx:id="btn_editUser" layoutX="30.0" layoutY="500.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="EDITAR USUARIO" />
+            <Button fx:id="btn_editUser" layoutX="30.0" layoutY="500.0" mnemonicParsing="false" onAction="#editarUserButton" prefHeight="48.0" prefWidth="145.0" text="EDITAR USUARIO" />
             <Button fx:id="btn_exit" layoutX="35.0" layoutY="805.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="145.0" text="SALIR" />
          </children>
       </AnchorPane>

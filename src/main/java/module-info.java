@@ -6,6 +6,8 @@ module es.iesfranciscodelosrios.BookMaker {
 	  requires javafx.base;
     requires org.hibernate.orm.core;
     requires org.hibernate.commons.annotations;
+	requires javafx.base;
+	requires transitive javafx.graphics;
 
 
     opens es.iesfranciscodelosrios.BookMaker to org.hibernate.commons.annotations, org.hibernate.orm.core, javafx.fxml, java.persistence;

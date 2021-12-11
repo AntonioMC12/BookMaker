@@ -171,6 +171,14 @@ public class mainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("//////////////////////////////////////////////");
+		
+		try {
+			System.out.println(new BookDAO().showAllByUser(user1));
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		

@@ -1,7 +1,9 @@
 package es.iesfranciscodelosrios.BookMaker;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,7 +20,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"), 700, 500);
+        scene = new Scene(loadFXML("MainScreen"), 1330, 965);
         stage.setScene(scene);
         stage.show();
     }
@@ -35,5 +37,26 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
+    
+	/**
+	 * Método para cambiar de vista
+	 * 
+	 * @param event evento de javafx
+	 * @param url   ruta a dirigirse
+	 */
+	public static void GoTo(Event event, String url) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(App.class.getResource(url + ".fxml"));
+			Scene scene = new Scene(root);
+			Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			appStage.setScene(scene);
+			appStage.toFront();
+			appStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

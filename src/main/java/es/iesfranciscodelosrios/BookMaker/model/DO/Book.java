@@ -25,7 +25,8 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 @Table(name = "Book")
 @NamedQueries({ 
 	@NamedQuery(name = "findBookById", query = "SELECT b FROM Book b WHERE b.id =:id"), 
-	@NamedQuery(name = "getAllBooks", query="SELECT b FROM Book b")
+	@NamedQuery(name = "getAllBooks", query="SELECT b FROM Book b"),
+	@NamedQuery(name = "gellAllBooksByUser", query = "SELECT b FROM Book b WHERE b.user =: user")
 	})
 public class Book implements IBook, Serializable {
 
