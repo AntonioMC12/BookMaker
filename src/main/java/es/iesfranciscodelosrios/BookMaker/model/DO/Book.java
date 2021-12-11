@@ -81,6 +81,20 @@ public class Book implements IBook, Serializable {
 		this.user = null;
 		this.characters = null;
 	}
+	
+	public Book(Long id,String tittle, String summary, String genre) {
+		this.id = -1L;
+		this.tittle = tittle;
+		this.summary = summary;
+		this.genre = genre;
+	}
+	
+	public Book(String tittle, String summary, String genre) {
+		this.id = -1L;
+		this.tittle = tittle;
+		this.summary = summary;
+		this.genre = genre;
+	}
 
 	@Override
 	public int hashCode() {

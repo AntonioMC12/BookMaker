@@ -60,11 +60,19 @@ public class Act implements IAct, Serializable {
 	 * @param name
 	 * @param description
 	 */
-	protected Act(String name, String description) {
+	public Act(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
 	}
+	
+	public Act(Long id,String name, String description) {
+		super();
+		this.id=id;
+		this.name = name;
+		this.description = description;
+	}
+
 
 	public Act(Book book, String name, String description) {
 		super();

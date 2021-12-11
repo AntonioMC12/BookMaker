@@ -3,6 +3,7 @@ module es.iesfranciscodelosrios.BookMaker {
     requires javafx.fxml;
     requires java.persistence;
     requires java.sql;
+	  requires javafx.base;
     requires org.hibernate.orm.core;
     requires org.hibernate.commons.annotations;
 
