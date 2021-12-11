@@ -13,11 +13,13 @@ import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IUserDAO;
+import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 
 public class UserDAO implements IUserDAO {
+	
 	public static EntityManager createEM() {
-		EntityManagerFactory emf = Utils.getInstance();
+		EntityManagerFactory emf = PersistenceUnit.getInstance();
 		return emf.createEntityManager();
 	}
 

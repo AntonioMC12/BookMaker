@@ -36,7 +36,7 @@ public class Character implements ICharacter, Serializable {
 	@Column(name = "rol")
 	private String rol;
 
-	@ManyToMany(mappedBy = "book")
+	@ManyToMany(targetEntity=Book.class, mappedBy="characters")
 	private List<Book> books;
 
 	public Character(String name, String description, String rol, List<Book> books) {
@@ -133,4 +133,10 @@ public class Character implements ICharacter, Serializable {
 		this.books = books;
 	}
 
+	@Override
+	public String toString() {
+		return "Character [id=" + id + ", name=" + name + ", description=" + description + ", rol=" + rol + "]";
+	}
+
+	
 }

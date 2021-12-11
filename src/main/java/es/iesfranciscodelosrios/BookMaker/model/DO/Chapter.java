@@ -43,7 +43,7 @@ public class Chapter implements IChapter, Serializable {
 	@JoinColumn (name="act_id")
 	private Act act;
 	
-	@OneToMany(mappedBy="Chapter", cascade=CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(mappedBy="chapter", cascade=CascadeType.REMOVE, orphanRemoval = true)
 	private List<ChapterNote> notesChapter;
 	
 	
