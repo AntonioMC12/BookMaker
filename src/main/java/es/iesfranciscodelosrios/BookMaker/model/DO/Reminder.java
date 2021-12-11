@@ -54,7 +54,17 @@ public class Reminder implements IReminder, Serializable {
 		this.chapterIndex = chapterIndex;
 	}
 
-	protected Reminder() {
+	public Reminder(String name, String text, int chapterIndex, Book book) {
+		super();
+		this.name = name;
+		this.text = text;
+		this.chapterIndex = chapterIndex;
+		this.book = book;
+	}
+	
+	
+
+	public Reminder() {
 		super();
 	}
 

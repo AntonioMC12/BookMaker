@@ -46,6 +46,13 @@ public class ChapterNote implements IChapterNote, Serializable {
 		this.content = content;
 	}
 
+	public ChapterNote(String name, String content, Chapter chapter) {
+		super();
+		this.name = name;
+		this.content = content;
+		this.chapter = chapter;
+	}
+
 	public ChapterNote() {
 		super();
 	}

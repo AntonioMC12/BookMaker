@@ -15,8 +15,7 @@ import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 public class BookDAO implements IBookDAO {
 
 	public static EntityManager createEM() {
-		EntityManagerFactory emf = PersistenceUnit.getInstance();
-		return emf.createEntityManager();
+		return PersistenceUnit.getEM();
 	}
 
 	@Override

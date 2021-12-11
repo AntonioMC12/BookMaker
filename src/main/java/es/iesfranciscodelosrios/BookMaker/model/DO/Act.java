@@ -66,6 +66,13 @@ public class Act implements IAct, Serializable {
 		this.description = description;
 	}
 
+	public Act(Book book, String name, String description) {
+		super();
+		this.book = book;
+		this.name = name;
+		this.description = description;
+	}
+
 	public Long getId() {
 		return id;
 	}

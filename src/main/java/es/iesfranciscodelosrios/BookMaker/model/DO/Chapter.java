@@ -57,6 +57,14 @@ public class Chapter implements IChapter, Serializable {
 		this.notesChapter = notesChapter;
 	}
 
+	public Chapter(String name, String text, Act act, List<ChapterNote> notesChapter) {
+		super();
+		this.name = name;
+		this.text = text;
+		this.act = act;
+		this.notesChapter = notesChapter;
+	}
+
 	public Chapter() {
 		super();
 	}

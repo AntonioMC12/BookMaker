@@ -19,14 +19,10 @@ import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 public class UserDAO implements IUserDAO {
 	
 	public static EntityManager createEM() {
-		EntityManagerFactory emf = PersistenceUnit.getInstance();
-		return emf.createEntityManager();
+		
+		return PersistenceUnit.getEM();
 	}
 
-	public static EntityTransaction beginSession() {
-		EntityManager em = createEM();
-		return em.getTransaction();
-	}
 
 	public void save(User u) throws DAOException { // Insert-update
 		EntityManager em = createEM();
