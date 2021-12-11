@@ -61,6 +61,11 @@ public class Chapter implements IChapter, Serializable {
 		super();
 	}
 	
+	public Chapter(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	@Override
 	public Long getId() {
 		return id;
