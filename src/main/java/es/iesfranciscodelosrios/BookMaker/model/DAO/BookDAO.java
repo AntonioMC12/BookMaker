@@ -129,5 +129,27 @@ public class BookDAO implements IBookDAO {
 
 		return books;
 	}
+	
+	public List<Book> showAllByTittle(String tittle) throws DAOException{
+		List<Book> books = new ArrayList<Book>();
+		try {
+			EntityManager em = createEM();
+			TypedQuery<Book> q=em.createNamedQuery("gellAllBooksByTittle", Book.class);
+			q.setParameter("tittle", tittle);
+			books=q.getResultList();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
+
+		return books;
+	}
 
 }

@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="700.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.ModalBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="700.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.ModalEditUserController">
    <children>
-      <Button fx:id="botGuardar" layoutX="599.0" layoutY="380.0" mnemonicParsing="false" onAction="#insertBook" text="Guardar" />
+      <Button fx:id="botGuardar" layoutX="599.0" layoutY="380.0" mnemonicParsing="false" onAction="#editUser" text="Guardar" />
       <Button fx:id="botVolver" layoutX="599.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="59.0" text="Volver" />
       <Label layoutX="80.0" layoutY="101.0" text="Nuevo Nombre: ">
          <font>
