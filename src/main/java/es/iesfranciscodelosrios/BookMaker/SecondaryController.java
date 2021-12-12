@@ -14,6 +14,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -126,12 +127,12 @@ public class SecondaryController implements Initializable{
     private ObservableList<ChapterNote> chapterNotes;
     private ObservableList<Chapter> sortedChapterList;
     
-    public static Book currentBook;
     public static Chapter currentChapter;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println(MainScreenCrontroller.currentBook.toString());
+		this.l_selectedBook.setText(MainScreenCrontroller.currentBook.toString());
 		setObservablesList();
 		setComboboxes();
 		setChapterTable();
@@ -325,6 +326,40 @@ public class SecondaryController implements Initializable{
 		try {
 			this.chapterNotes.addAll(cndao.showAll());
 		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void GoCreateCharacter(ActionEvent event) {
+		openModal(event, "ModalCreateCharacter.fxml");
+	}
+	
+	@FXML
+	public void GoEditCharacter(ActionEvent event) {
+		openModal(event, "ModalEditCharacter.fxml");
+	}
+	
+	/**
+	 * Método que abre una ventana modal
+	 * 
+	 * @param event
+	 * @param url   nombre del fichero fxml
+	 */
+	private void openModal(ActionEvent event, String url) {
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(url));
+		Parent modal;
+		try {
+			modal = fxmlLoader.load();
+			Stage modalStage = new Stage();
+			modalStage.initModality(Modality.APPLICATION_MODAL);
+			modalStage.initOwner(App.roostage);
+			Scene modalScene = new Scene(modal);
+			modalStage.setScene(modalScene);
+			modalStage.showAndWait();
+			modalStage.setResizable(false);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

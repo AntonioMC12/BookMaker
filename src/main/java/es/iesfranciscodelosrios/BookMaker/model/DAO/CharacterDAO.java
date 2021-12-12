@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.ICharacterDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Character;
 
 public class CharacterDAO implements ICharacterDAO {
 
@@ -40,7 +41,22 @@ public class CharacterDAO implements ICharacterDAO {
 
 	@Override
 	public void edit(Character a) throws DAOException {
-		save(a);
+		try {
+			EntityManager em = createEM();
+			em.getTransaction().begin();
+			em.merge(a);
+			em.getTransaction().commit();
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists. ", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("A method has been passed an illegal orinappropriate argument.", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (Exception e) {
+			throw new DAOException("An error has ocurred", e);
+		}
 
 	}
 
@@ -69,7 +85,8 @@ public class CharacterDAO implements ICharacterDAO {
 		List<Character> characters = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			characters = em.createQuery("getAllCharacters", Character.class).getResultList();
+			TypedQuery<Character> q = em.createNamedQuery("getAllCharacters", Character.class);
+			characters = q.getResultList();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {
@@ -117,7 +134,7 @@ public class CharacterDAO implements ICharacterDAO {
 			chapters = q.getResultList();
 			em.getTransaction().commit();
 		} catch (EntityExistsException e) {
-			throw new DAOException("The entity already exists. ");
+			throw new DAOException("The entity already exists.");
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (RollbackException e) {
