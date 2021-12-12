@@ -25,6 +25,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Reminder;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.DO.UserSesion;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
+import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +35,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
@@ -42,6 +44,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 
 public class MainScreenCrontroller {
 
@@ -88,11 +91,22 @@ public class MainScreenCrontroller {
 	private TableView<Book> tbl_books;
 
 	protected static ObservableList<Book> listas = FXCollections.observableArrayList();
+	protected static Book currentBook;
+
+	private static EntityManager em;
+	private static EntityManagerFactory emf;
+	protected static User user1;
+	public static boolean primera = false;
 
 	@FXML
 	public void initialize() {
-		UserSesion.getInstance();
+		if (!primera)
+			main();
+		primera = true;
+		UserSesion.getInstance().setUser(user1);
 		this.btn_delete.setDisable(true);
+		this.btn_continue.setDisable(true);
+		this.btn_removeUser.setDisable(true);
 		setInfo();
 
 	}
@@ -146,17 +160,76 @@ public class MainScreenCrontroller {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@FXML
+	public void selectBook() {
+		System.out.println("Entro en el selectBook");
+		this.btn_continue.setDisable(false);
+		this.btn_delete.setDisable(false);
+		@SuppressWarnings("rawtypes")
+		TablePosition pos = tbl_books.getSelectionModel().getSelectedCells().get(0);
+		int row = pos.getRow();
+		Book book = tbl_books.getItems().get(row);
+		currentBook = book;
+	}
+
+	@FXML
+	public void deleteButton() {
+		if (currentBook != null) {
+			if (Utils.popConfirmation("¿Está seguro de continuar?")) {
+				listas.remove(currentBook);
+				try {
+					new BookDAO().delete(currentBook);
+					currentBook = new Book();
+					showValid("Borrado con éxito");
+					this.btn_delete.setDisable(true);
+					this.btn_continue.setDisable(true);
+				} catch (DAOException e) {
+					showError("Ha ocurrido un error");
+					e.printStackTrace();
+				}
+			}
+		} else {
+			showError("Seleccione un Libro");
+		}
+
+	}
+
+	@FXML
+	public void deleteUserButton(Event event) {
+		if (UserSesion.getInstance().getUser() != null) {
+			if (Utils.popConfirmation("¿Está seguro de continuar?")) {
+				try {
+					new UserDAO().delete(UserSesion.getInstance().getUser());
+					exitButton(event);
+				} catch (DAOException e) {
+					Utils.popError("Error al eliminar el usuario");
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@FXML
+	public void exitButton(Event event) {
+		App.GoTo(event, "login");
+	}
+
+	@FXML
+	public void continueButton(Event event) {
+		App.GoTo(event, "SecondaryScreen");
+	}
+
 	@FXML
 	public void crearLibroButton(ActionEvent event) {
-		openModal(event, ".fxml");
+		openModal(event, "ModalBook.fxml");
 	}
 
 	@FXML
 	public void editarUserButton(ActionEvent event) {
-		openModal(event, ".fxml");
+		openModal(event, "ModalEditUser.fxml");
 	}
-	
+
 	/**
 	 * Método que abre una ventana modal
 	 * 
@@ -180,9 +253,7 @@ public class MainScreenCrontroller {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	@FXML
 	public void showValid(String text) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -200,5 +271,155 @@ public class MainScreenCrontroller {
 		alert.setTitle("Error");
 		alert.setContentText(text);
 		alert.showAndWait();
+	}
+
+	public void main() {
+		emf = PersistenceUnit.getInstance("aplicacionH2");
+		em = PersistenceUnit.getEM();
+
+		// em.getTransaction().begin();
+		///////////////////////////////////////////////////////////////////////////
+		// LOS CAMBIOS SON EFECTIVOS
+		user1 = new User("Antonio", "1234", "prueba@prueba.com");
+		List<Character> characters = new ArrayList<Character>();
+		Book book1 = new Book("Quijote", "Un jambo que va to puesteo", "Fantasía", user1, null);
+		List<Book> books = new ArrayList<Book>();
+		Character character1 = new Character("Sancho", "Señor con panza", "Notas", books);
+		characters.add(character1);
+
+		book1.setCharacters(characters);
+		books.add(book1);
+		user1.setBooks(books);
+
+		try {
+			new UserDAO().save(user1);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+
+		Act a = new Act(book1, "Molinos", "Don Quijote se da de hostias con un molino");
+
+		ActDAO adao = new ActDAO();
+
+		try {
+			adao.save(a);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		GlobalNote gn = new GlobalNote("Nota 1", "Don Quijote es retrasado", book1);
+
+		GlobalNoteDAO gndao = new GlobalNoteDAO();
+
+		try {
+			gndao.save(gn);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Chapter c = new Chapter("Capitulo 1", "Primer capitulo del Quijote", "Terminado", a,
+				new ArrayList<ChapterNote>());
+
+		ChapterDAO cdao = new ChapterDAO();
+
+		try {
+			cdao.save(c);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ChapterNote cn = new ChapterNote("Nota del capitulo 1", "En esta capitulo Sancho Panza se emborracha", c);
+
+		ChapterNoteDAO cndao = new ChapterNoteDAO();
+
+		try {
+			cndao.save(cn);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Reminder r = new Reminder("Recordatorio", "Termina lo que empieces", 1, book1);
+
+		ReminderDAO rdao = new ReminderDAO();
+
+		try {
+			rdao.save(r);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// FINAL DE LOS CAMBIOS
+		///////////////////////////////////////////////////////////////////////////
+		// em.getTransaction().commit();
+
+		Reminder ax = new Reminder();
+
+		try {
+			// Tenemos 2 opciones:
+			// En los lugares donde vayamos a tener que editar datos vamos a tener que poner
+			// transactions
+			// o llamar al DAO de turno y hacer un save del objeto que hayamos editado
+
+			em.getTransaction().begin();
+			ax = rdao.show(r.getId());
+			// em.persist(ax); //Ya viene persistido
+			ax.setName("Recorda");
+			em.getTransaction().commit();
+			System.out.println(ax);
+		} catch (DAOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// em.getTransaction().begin();
+
+		try {
+			// ax=em.merge(ax);
+			// em.remove(ax);
+			rdao.delete(ax);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		BookDAO bdao = new BookDAO();
+
+		// book1.setId(2L); //No te deja cambiar la id de un objecto que ya exista en la
+		// base de datos
+
+		book1.setTittle("El Seños de los Anillos");
+
+		try {
+			bdao.save(book1);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			List<GlobalNote> allGlobalNotes = new ArrayList<GlobalNote>(gndao.getAllBookNotes(book1));
+			System.out.println("\n");
+			for (GlobalNote globalNote : allGlobalNotes) {
+				System.out.println(globalNote);
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("//////////////////////////////////////////////");
+
+		try {
+			System.out.println(new BookDAO().showAllByUser(user1));
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// em.getTransaction().commit();
 	}
 }
