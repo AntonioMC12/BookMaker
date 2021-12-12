@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TransactionRequiredException;
+import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.Reminder;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IReminderDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 
 public class ReminderDAO implements IReminderDAO {
-
-	private static EntityManager em;
 	
 	public static EntityManager createEM() {
 		/*
@@ -79,7 +77,10 @@ public class ReminderDAO implements IReminderDAO {
 		List<Reminder> reminders = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			reminders = em.createQuery("findAllReminders", Reminder.class).getResultList();
+			em.getTransaction().begin();
+			TypedQuery<Reminder> q = em.createNamedQuery("findAllReminders", Reminder.class);
+			reminders = q.getResultList();
+			em.getTransaction().commit();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

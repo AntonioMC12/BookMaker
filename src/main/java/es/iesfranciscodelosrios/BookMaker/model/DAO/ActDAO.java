@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TransactionRequiredException;
+import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IActDAO;
@@ -69,7 +69,10 @@ public class ActDAO implements IActDAO {
 		List<Act> acts = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			acts = em.createQuery("findAllActs", Act.class).getResultList();
+			em.getTransaction().begin();
+			TypedQuery<Act> q = em.createNamedQuery("findAllActs", Act.class);
+			acts = q.getResultList();
+			em.getTransaction().commit();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

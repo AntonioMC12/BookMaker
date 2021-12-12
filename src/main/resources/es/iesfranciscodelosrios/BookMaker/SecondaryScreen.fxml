@@ -41,26 +41,26 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cb_selAct" layoutX="140.0" layoutY="209.0" prefWidth="150.0" promptText="Eleccion" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="209.0" />
-                  <TableView fx:id="tv_chapters" layoutX="69.0" layoutY="267.0" prefHeight="205.0" prefWidth="223.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="267.0">
+                  <ComboBox fx:id="cb_selAct" layoutX="140.0" layoutY="209.0" onAction="#checkBookChapters" prefWidth="150.0" promptText="Eleccion" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="209.0" />
+                  <TableView fx:id="tv_chapters" layoutX="69.0" layoutY="267.0" prefHeight="205.0" prefWidth="223.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="267.0">
                     <columns>
-                      <TableColumn fx:id="tc_chapName" prefWidth="119.0" text="Nombre" />
-                      <TableColumn fx:id="tc_chapState" prefWidth="114.0" text="Estado" />
+                      <TableColumn fx:id="tc_chapName" prefWidth="122.0" text="Nombre" />
+                      <TableColumn fx:id="tc_chapState" prefWidth="121.0" text="Estado" />
                     </columns>
                   </TableView>
-                  <Button fx:id="b_newChapter" layoutX="90.0" layoutY="517.0" mnemonicParsing="false" text="Crear Capitulo" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="520.0">
+                  <Button fx:id="b_newChapter" layoutX="90.0" layoutY="517.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Crear Capitulo" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="517.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_addReminder" layoutX="97.0" layoutY="606.0" mnemonicParsing="false" text="Recordatorio" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="720.0">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_addReminder" layoutX="97.0" layoutY="606.0" mnemonicParsing="false" text="Recordatorio" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="620.0">
+                  <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Crear Acto" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="620.0">
                      <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" text="Crear Acto" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="720.0">
-                     <font>
-                        <Font size="24.0" />
+                        <Font size="14.0" />
                      </font>
                   </Button>
                   <Label fx:id="l_selectedBook" layoutX="140.0" layoutY="150.0" text="Libro Actual" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="150.0">
@@ -68,6 +68,16 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <Button fx:id="b_delChapter" layoutX="188.0" layoutY="517.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Borrar Capitulo" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="517.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_delAct" layoutX="229.0" layoutY="733.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Borrar Acto" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="620.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -77,7 +87,7 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="ta_text" layoutX="147.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="230.0" />
+                  <TextArea fx:id="ta_text" layoutX="147.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="230.0" />
                   <Button fx:id="b_saveText" layoutX="77.0" layoutY="735.0" mnemonicParsing="false" onAction="#saveChapter" text="Guardar" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="735.0">
                      <font>
                         <Font size="14.0" />
@@ -106,21 +116,26 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="ta_note" layoutX="71.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />
-                  <TableView fx:id="tv_notes" layoutX="71.0" layoutY="370.0" prefHeight="337.0" prefWidth="200.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="370.0">
+                  <TextArea fx:id="ta_note" layoutX="71.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />
+                  <TableView fx:id="tv_notes" layoutX="71.0" layoutY="370.0" prefHeight="260.0" prefWidth="221.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="370.0">
                     <columns>
                       <TableColumn fx:id="tc_noteName" prefWidth="109.0" text="Nombre" />
                       <TableColumn fx:id="tc_NoteChapter" prefWidth="111.0" text="Capitulo" />
                     </columns>
                   </TableView>
-                  <Button fx:id="b_saveNote" layoutX="60.0" layoutY="734.0" mnemonicParsing="false" onAction="#saveChapterNote" prefWidth="90.0" text="Guardar" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="735.0">
+                  <Button fx:id="b_saveNote" layoutX="60.0" layoutY="734.0" mnemonicParsing="false" onAction="#saveChapterNote" prefWidth="90.0" text="Guardar" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="660.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_delNote" layoutX="195.0" layoutY="738.0" mnemonicParsing="false" onAction="#deleteChapterNote" prefWidth="90.0" text="Borrar" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="735.0">
+                  <Button fx:id="b_delNote" layoutX="195.0" layoutY="738.0" mnemonicParsing="false" onAction="#deleteChapterNote" prefWidth="90.0" text="Borrar" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="660.0">
                      <font>
                         <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="b_createNote" layoutX="115.0" layoutY="727.0" mnemonicParsing="false" onAction="#createChapterNote" prefHeight="51.0" prefWidth="220.0" text="Crear Nota" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="720.0">
+                     <font>
+                        <Font size="24.0" />
                      </font>
                   </Button>
                </children></AnchorPane>

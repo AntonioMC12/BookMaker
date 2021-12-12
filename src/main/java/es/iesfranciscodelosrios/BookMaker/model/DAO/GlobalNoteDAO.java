@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
 import javax.persistence.TransactionRequiredException;
@@ -15,7 +14,6 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.GlobalNote;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IGlobalNoteDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
-import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 
 public class GlobalNoteDAO implements IGlobalNoteDAO{
 	public static EntityManager createEM() {

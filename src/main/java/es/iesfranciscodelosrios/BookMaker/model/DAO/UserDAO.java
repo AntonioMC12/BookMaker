@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
@@ -14,7 +12,6 @@ import javax.persistence.TypedQuery;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IUserDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
-import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 
 public class UserDAO implements IUserDAO {
 	

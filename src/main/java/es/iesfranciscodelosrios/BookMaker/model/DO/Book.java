@@ -184,7 +184,7 @@ public class Book implements IBook, Serializable {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", tittle=" + tittle + ", summary=" + summary + ", genre=" +", characters=" + characters + "]";
+		return tittle;
 	}
 	
 	
