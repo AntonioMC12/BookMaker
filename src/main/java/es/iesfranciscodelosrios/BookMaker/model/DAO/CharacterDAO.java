@@ -86,7 +86,7 @@ public class CharacterDAO implements ICharacterDAO {
 		try {
 			EntityManager em = createEM();
 			em.getTransaction().begin();
-			TypedQuery<Character> q=em.createNamedQuery("findAllCharacters", Character.class);
+			TypedQuery<Character> q=em.createNamedQuery("getAllCharacters", Character.class);
 			characters=q.getResultList();
 			em.getTransaction().commit();
 		} catch (IllegalStateException e) {
