@@ -77,7 +77,7 @@ public class mainTest {
 			e.printStackTrace();
 		}
 		
-		Chapter c=new Chapter("Capitulo 1", "Primer capitulo del Quijote", a, new ArrayList<ChapterNote>());
+		Chapter c=new Chapter("Capitulo 1", "Primer capitulo del Quijote", "Terminado", a, new ArrayList<ChapterNote>());
 		
 		ChapterDAO cdao=new ChapterDAO();
 		
