@@ -2,9 +2,12 @@ package es.iesfranciscodelosrios.BookMaker;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ActDAO;
+import es.iesfranciscodelosrios.BookMaker.model.DAO.BookDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterNoteDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
@@ -12,6 +15,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
+import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,9 +32,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -121,6 +125,12 @@ public class SecondaryController implements Initializable{
     
     @FXML
     private Button b_delAct;
+    
+    @FXML
+    private TextField tf_state;
+    
+    @FXML
+    private Button b_saveSate;
 
     private ObservableList<Act> actList;
     private ObservableList<Chapter> chapterList;
@@ -131,21 +141,22 @@ public class SecondaryController implements Initializable{
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		System.out.println(MainScreenCrontroller.currentBook.toString());
 		this.l_selectedBook.setText(MainScreenCrontroller.currentBook.toString());
 		setObservablesList();
 		setComboboxes();
 		setChapterTable();
 		setChapterNotesTable();
+		
 	}
 	
 	public void setObservablesList() {
-		ActDAO adao=new ActDAO();
 		ChapterDAO cdao=new ChapterDAO();
 		ChapterNoteDAO cndao=new ChapterNoteDAO();
 		
 		try {
-			this.actList=FXCollections.observableArrayList(adao.showAll());
+			this.actList=FXCollections.observableArrayList();
 			this.chapterList=FXCollections.observableArrayList(cdao.showAll());
 			this.chapterNotes=FXCollections.observableArrayList(cndao.showAll());
 			this.sortedChapterList=FXCollections.observableArrayList();
@@ -156,6 +167,23 @@ public class SecondaryController implements Initializable{
 	}
 	
 	public void setComboboxes() {
+		ActDAO adao=new ActDAO();
+		
+		List<Act> allActs=null;
+		
+		try {
+			allActs = new ArrayList<Act>(adao.showAll());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (Act act : allActs) {
+			if(act.getBook()==currentBook) {
+				this.actList.add(act);				
+			}
+		}
+		
 		this.cb_selAct.setItems(actList);
 	}
 	
@@ -173,6 +201,7 @@ public class SecondaryController implements Initializable{
 							
 							l_chapName.setText(currentChapter.getName());
 							ta_text.setText(currentChapter.getText());
+							tf_state.setText(currentChapter.getState());
 						}
 					}
 				}
@@ -181,35 +210,6 @@ public class SecondaryController implements Initializable{
 
 		this.tc_chapName.setCellValueFactory(new PropertyValueFactory<Chapter, String>("name"));
 		this.tc_chapState.setCellValueFactory(new PropertyValueFactory<Chapter, String>("state"));
-		
-		this.tc_chapState.setEditable(true);
-		this.tc_chapState.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Chapter, String>>() { //EventHandler para celda editable
-			@Override
-			public void handle(CellEditEvent<Chapter, String> event) {
-				
-				//Codigo que se va a ejecutar cuando la celda sea editada
-				
-				Chapter ec=tv_chapters.getSelectionModel().getSelectedItem();
-				String newSate=event.getNewValue();
-				
-				for(int i=0; i<chapterList.size(); i++) {
-					if(chapterList.get(i).equals(ec)) {
-						chapterList.get(i).setState(newSate);
-						
-						ChapterDAO cdao=new ChapterDAO();
-						
-						try {
-							cdao.save(chapterList.get(i));
-						} catch (DAOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						i=chapterList.size();
-					}
-				}
-			}
-	    });
 		
 		this.tv_chapters.getSortOrder().add(this.tc_chapName);
 	}
@@ -332,33 +332,104 @@ public class SecondaryController implements Initializable{
 	}
 	
 	@FXML
-	public void GoCreateCharacter(ActionEvent event) {
-		openModal(event, "ModalCreateCharacter.fxml");
+	public void createChapter() {	
+		if(cb_selAct.getSelectionModel().getSelectedItem()!=null) {
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalCreateChapter.fxml"));
+			Parent root=null;
+			try {
+				root = loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Scene scene=new Scene(root);
+			Stage stage=new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.showAndWait();
+			
+			ChapterDAO cdao=new ChapterDAO();
+			
+			if(ModalCreateChapterController.createdChapter!=null) {
+				this.chapterList.clear();
+				
+				try {		
+					this.sortedChapterList.add(ModalCreateChapterController.createdChapter);
+					this.chapterList.addAll(cdao.showAll());
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}						
+			}
+			
+		}else {
+			Utils.popWarning("Elija un acto primero");
+		}
 	}
 	
 	@FXML
-	public void GoEditCharacter(ActionEvent event) {
-		openModal(event, "ModalEditCharacter.fxml");
+	public void deleteChapter() {
+		Chapter c=tv_chapters.getSelectionModel().getSelectedItem();
+		
+		ChapterDAO cdao=new ChapterDAO();
+		
+		if(c!=null) {
+			try {
+				cdao.delete(c);
+				this.sortedChapterList.remove(c);
+				this.chapterList.remove(c);
+				Utils.popInfo("Capitulo borrado con exito");
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			Utils.popWarning("Seleccione un capitulo a borrar");
+		}
 	}
 	
-	/**
-	 * Método que abre una ventana modal
-	 * 
-	 * @param event
-	 * @param url   nombre del fichero fxml
-	 */
-	private void openModal(ActionEvent event, String url) {
-		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(url));
-		Parent modal;
+	@FXML
+	public void saveState() {
+		String state=this.tf_state.getText();
+		
+		System.out.println(currentChapter);
+		
+		if(currentChapter!=null) {
+			if(!state.isEmpty()) {
+				currentChapter.setState(state);
+				ChapterDAO cdao=new ChapterDAO();
+				
+				try {
+					cdao.save(currentChapter);
+					
+					for (int i=0; i<this.chapterList.size(); i++) {
+						if(this.chapterList.get(i).equals(currentChapter)) {
+							this.chapterList.get(i).setState(state);
+							this.tv_chapters.refresh();
+							i=this.chapterList.size();
+						}
+					}
+					
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				Utils.popInfo("Introduzca un estado");
+			}
+		}else {
+			Utils.popInfo("Seleccione un capitulo primero");
+		}
+	}
+	
+	@FXML
+	public void createAct() {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalCreateAct.fxml"));
+		Parent root=null;
 		try {
-			modal = fxmlLoader.load();
-			Stage modalStage = new Stage();
-			modalStage.initModality(Modality.APPLICATION_MODAL);
-			modalStage.initOwner(App.roostage);
-			Scene modalScene = new Scene(modal);
-			modalStage.setScene(modalScene);
-			modalStage.showAndWait();
-			modalStage.setResizable(false);
+			root = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
