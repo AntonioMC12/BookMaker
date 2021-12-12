@@ -26,7 +26,9 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.IBook;
 @NamedQueries({ 
 	@NamedQuery(name = "findBookById", query = "SELECT b FROM Book b WHERE b.id =:id"), 
 	@NamedQuery(name = "getAllBooks", query="SELECT b FROM Book b"),
-	@NamedQuery(name = "gellAllBooksByUser", query = "SELECT b FROM Book b WHERE b.user =: user")
+	@NamedQuery(name = "gellAllBooksByUser", query = "SELECT b FROM Book b WHERE b.user =: user"),
+	@NamedQuery(name = "gellAllBooksByTittle", query = "SELECT b FROM Book b WHERE b.tittle =: tittle")
+	
 	})
 public class Book implements IBook, Serializable {
 
@@ -88,6 +90,7 @@ public class Book implements IBook, Serializable {
 		this.tittle = tittle;
 		this.summary = summary;
 		this.genre = genre;
+		this.user = null;
 	}
 	
 	public Book(String tittle, String summary, String genre) {
@@ -95,6 +98,15 @@ public class Book implements IBook, Serializable {
 		this.tittle = tittle;
 		this.summary = summary;
 		this.genre = genre;
+		this.user = null;
+	}
+	
+	public Book(String tittle, String summary, String genre, User user) {
+		this.id = -1L;
+		this.tittle = tittle;
+		this.summary = summary;
+		this.genre = genre;
+		this.user = user;
 	}
 
 	@Override
