@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="700.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.ModalChapterNoteController">
+   <children>
+      <Button fx:id="b_Save" layoutX="599.0" layoutY="380.0" mnemonicParsing="false" onAction="#insertChapterNote" text="Guardar" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="350.0" />
+      <Button fx:id="b_Back" layoutX="599.0" layoutY="433.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="59.0" text="Volver" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="400.0" />
+      <Label layoutX="80.0" layoutY="101.0" text="Nombre: " AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="101.0">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="80.0" layoutY="200.0" prefHeight="27.0" prefWidth="165.0" text="Texto:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="200.0">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="t_Name" layoutX="284.0" layoutY="95.0" prefHeight="39.0" prefWidth="262.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="95.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="30.0" layoutY="32.0" text="Por favor, rellene los campos y guarde los datos, gracias." textFill="#855555" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="215.0" fitWidth="229.0" layoutX="30.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="243.0">
+         <image>
+            <Image url="@img/posit.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="t_Text" layoutX="284.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="200.0" />
+   </children>
+</AnchorPane>

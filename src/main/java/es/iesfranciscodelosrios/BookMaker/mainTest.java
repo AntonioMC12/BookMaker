@@ -34,7 +34,7 @@ public class mainTest {
 		emf = PersistenceUnit.getInstance("aplicacionH2");
 		em = PersistenceUnit.getEM();
 
-		
+		/*
 		//em.getTransaction().begin();
 		///////////////////////////////////////////////////////////////////////////
 		//LOS CAMBIOS SON EFECTIVOS
@@ -179,10 +179,19 @@ public class mainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		
 		
 		//em.getTransaction().commit();
+		
+		ActDAO adao=new ActDAO();
+		
+		try {
+			System.out.println(adao.showAll());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

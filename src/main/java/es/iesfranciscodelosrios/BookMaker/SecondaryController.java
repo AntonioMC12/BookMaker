@@ -1,13 +1,10 @@
 package es.iesfranciscodelosrios.BookMaker;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ActDAO;
-import es.iesfranciscodelosrios.BookMaker.model.DAO.BookDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterNoteDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
@@ -15,12 +12,14 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
-import es.iesfranciscodelosrios.BookMaker.model.DO.GlobalNote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -34,6 +33,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class SecondaryController implements Initializable{
 	@FXML
@@ -110,13 +111,23 @@ public class SecondaryController implements Initializable{
     
     @FXML
     private Label l_noteName;
+    
+    @FXML
+    private Button b_createNote;
+    
+    @FXML
+    private Button b_delChapter;
+    
+    @FXML
+    private Button b_delAct;
 
     private ObservableList<Act> actList;
     private ObservableList<Chapter> chapterList;
     private ObservableList<ChapterNote> chapterNotes;
     private ObservableList<Chapter> sortedChapterList;
     
-    private Chapter currentChapter;
+    public static Book currentBook;
+    public static Chapter currentChapter;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -219,8 +230,10 @@ public class SecondaryController implements Initializable{
 		});
 
 		this.tc_noteName.setCellValueFactory(new PropertyValueFactory<ChapterNote, String>("name"));
-		this.tc_NoteChapter.setCellValueFactory(new PropertyValueFactory<ChapterNote, Long>("chapter_id"));
+		this.tc_NoteChapter.setCellValueFactory(new PropertyValueFactory<ChapterNote, Long>("id"));
 
+		this.tv_notes.setItems(chapterNotes);
+		
 		this.tv_notes.getSortOrder().add(this.tc_noteName);
 	}
 	
@@ -243,11 +256,11 @@ public class SecondaryController implements Initializable{
 	
 	@FXML
 	public void saveChapter() {
-		this.currentChapter.setText(this.ta_text.getText());
+		currentChapter.setText(this.ta_text.getText());
 		
 		ChapterDAO cdao=new ChapterDAO();
 		try {
-			cdao.save(this.currentChapter);
+			cdao.save(currentChapter);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -280,10 +293,40 @@ public class SecondaryController implements Initializable{
 			try {
 				cndao.delete(cn);
 				this.chapterNotes.remove(cn);
+				this.ta_note.setText("");
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	@FXML
+	public void createChapterNote() {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalChapterNote.fxml"));
+		Parent root=null;
+		try {
+			root = loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Scene scene=new Scene(root);
+		Stage stage=new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.showAndWait();
+		
+		ChapterNoteDAO cndao=new ChapterNoteDAO();
+		
+		this.chapterNotes.clear();
+		try {
+			this.chapterNotes.addAll(cndao.showAll());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

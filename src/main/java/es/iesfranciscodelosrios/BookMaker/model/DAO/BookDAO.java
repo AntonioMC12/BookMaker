@@ -5,12 +5,10 @@ import java.util.List;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
-import es.iesfranciscodelosrios.BookMaker.model.DO.GlobalNote;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IBookDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
