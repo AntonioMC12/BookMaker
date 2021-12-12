@@ -9,12 +9,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="965.0" prefWidth="1330.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.SecondaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="965.0" prefWidth="1330.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.SecondaryController">
    <children>
       <MenuBar fx:id="menuBar" layoutX="230.0" layoutY="57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -24,7 +25,7 @@
       </MenuBar>
       <SplitPane fx:id="sp_main" dividerPositions="0.276355421686747, 0.7409638554216867" layoutX="283.0" layoutY="214.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
         <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EED09D;">
                <children>
                   <ImageView fx:id="iv_logo" fitHeight="109.0" fitWidth="234.0" layoutX="65.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="20.0">
                      <image>
@@ -48,7 +49,7 @@
                       <TableColumn fx:id="tc_chapState" prefWidth="121.0" text="Estado" />
                     </columns>
                   </TableView>
-                  <Button fx:id="b_newChapter" layoutX="90.0" layoutY="517.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Crear Capitulo" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="517.0">
+                  <Button fx:id="b_newChapter" layoutX="90.0" layoutY="517.0" mnemonicParsing="false" onAction="#createChapter" prefHeight="50.0" prefWidth="115.0" text="Crear Capitulo" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="517.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -58,7 +59,7 @@
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Crear Acto" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="620.0">
+                  <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" onAction="#createAct" prefHeight="50.0" prefWidth="115.0" text="Crear Acto" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="620.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -68,19 +69,19 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="b_delChapter" layoutX="188.0" layoutY="517.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Borrar Capitulo" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="517.0">
+                  <Button fx:id="b_delChapter" layoutX="188.0" layoutY="517.0" mnemonicParsing="false" onAction="#deleteChapter" prefHeight="50.0" prefWidth="115.0" text="Borrar Capitulo" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="517.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_delAct" layoutX="229.0" layoutY="733.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Borrar Acto" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="620.0">
+                  <Button fx:id="b_delAct" layoutX="229.0" layoutY="733.0" mnemonicParsing="false" onAction="#deleteAct" prefHeight="50.0" prefWidth="115.0" text="Borrar Acto" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="620.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #EED09D;">
                <children>
                   <Label layoutX="54.0" layoutY="59.0" text="CAPITULO:" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="60.0">
                      <font>
@@ -108,8 +109,15 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
+                  <Label layoutX="60.0" layoutY="179.0" text="Estado:" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="160.0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tf_state" layoutX="165.0" layoutY="165.0" prefHeight="30.0" prefWidth="180.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="163.0" />
+                  <Button fx:id="b_saveState" layoutX="444.0" layoutY="163.0" mnemonicParsing="false" onAction="#saveState" prefHeight="30.0" text="Guardar estado" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="163.0" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="939.0" prefWidth="363.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="939.0" prefWidth="363.0" style="-fx-background-color: #EED09D;">
                <children>
                   <Label fx:id="l_noteName" layoutX="61.0" layoutY="59.0" text="Nombre Nota" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
                      <font>

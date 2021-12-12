@@ -38,6 +38,7 @@ public class ModalCreateChapterController implements Initializable{
     
     private ObservableList<Act> actList;
     public static Book currentBook;
+    public static Chapter createdChapter;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +69,7 @@ public class ModalCreateChapterController implements Initializable{
     @FXML
     public void insertChapter(ActionEvent event) throws DAOException {
     	Act a=this.cmbActo.getSelectionModel().getSelectedItem();
+    	
     	Chapter c=new Chapter(); 
     	
     	if(a!=null&&this.txtNombre.getText().isEmpty()==false) {
@@ -77,7 +79,8 @@ public class ModalCreateChapterController implements Initializable{
     		ChapterDAO cdao=new ChapterDAO();
     		
     		try {
-    			cdao.save(c);    			
+    			cdao.save(c);
+    			createdChapter=c;
     		}catch(DAOException e) {
     			e.printStackTrace();
     		}

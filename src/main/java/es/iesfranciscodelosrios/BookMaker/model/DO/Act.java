@@ -44,7 +44,7 @@ public class Act implements IAct, Serializable {
 	 * @param name
 	 * @param description
 	 */
-	protected Act(Long id, Book book, String name, String description) {
+	public Act(Long id, Book book, String name, String description) {
 		super();
 		this.id = id;
 		this.book = book;
@@ -52,8 +52,11 @@ public class Act implements IAct, Serializable {
 		this.description = description;
 	}
 
-	protected Act() {
-		super();
+	public Act() {
+		this.id=-1L;
+		this.book=new Book();
+		this.name="";
+		this.description="";
 	}
 
 	/**
@@ -133,7 +136,7 @@ public class Act implements IAct, Serializable {
 
 	@Override
 	public String toString() {
-		return book.toString();
+		return name;
 	}
 
 }
