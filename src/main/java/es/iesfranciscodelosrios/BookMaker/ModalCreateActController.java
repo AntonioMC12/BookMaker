@@ -36,7 +36,7 @@ public class ModalCreateActController implements Initializable {
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources){
-			currentBook=SecondaryController.currentBook;
+			currentBook= MainScreenCrontroller.currentBook;
 		}
 
 		@FXML

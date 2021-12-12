@@ -41,164 +41,164 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SecondaryController implements Initializable{
+public class SecondaryController implements Initializable {
 	@FXML
-    private MenuBar menuBar;
+	private MenuBar menuBar;
 
-    @FXML
-    private Menu m_characters;
+	@FXML
+	private Menu m_characters;
 
-    @FXML
-    private Menu m_notes;
+	@FXML
+	private Menu m_notes;
 
-    @FXML
-    private SplitPane sp_main;
+	@FXML
+	private SplitPane sp_main;
 
-    @FXML
-    private ImageView iv_logo;
+	@FXML
+	private ImageView iv_logo;
 
-    @FXML
-    private ComboBox<Act> cb_selAct;
+	@FXML
+	private ComboBox<Act> cb_selAct;
 
-    @FXML
-    private TableView<Chapter> tv_chapters;
+	@FXML
+	private TableView<Chapter> tv_chapters;
 
-    @FXML
-    private TableColumn<Chapter, String> tc_chapName;
+	@FXML
+	private TableColumn<Chapter, String> tc_chapName;
 
-    @FXML
-    private TableColumn<Chapter, String> tc_chapState;
+	@FXML
+	private TableColumn<Chapter, String> tc_chapState;
 
-    @FXML
-    private Button b_newChapter;
+	@FXML
+	private Button b_newChapter;
 
-    @FXML
-    private Button b_addReminder;
+	@FXML
+	private Button b_addReminder;
 
-    @FXML
-    private Button b_newAct;
+	@FXML
+	private Button b_newAct;
 
-    @FXML
-    private TextArea ta_text;
+	@FXML
+	private TextArea ta_text;
 
-    @FXML
-    private Button b_saveText;
+	@FXML
+	private Button b_saveText;
 
-    @FXML
-    private Button b_cancel;
+	@FXML
+	private Button b_cancel;
 
-    @FXML
-    private Button b_back;
+	@FXML
+	private Button b_back;
 
-    @FXML
-    private TextArea ta_note;
+	@FXML
+	private TextArea ta_note;
 
-    @FXML
-    private TableView<ChapterNote> tv_notes;
+	@FXML
+	private TableView<ChapterNote> tv_notes;
 
-    @FXML
-    private TableColumn<ChapterNote, String> tc_noteName;
+	@FXML
+	private TableColumn<ChapterNote, String> tc_noteName;
 
-    @FXML
-    private TableColumn<ChapterNote, Long> tc_NoteChapter;
+	@FXML
+	private TableColumn<ChapterNote, Long> tc_NoteChapter;
 
-    @FXML
-    private Button b_saveNote;
+	@FXML
+	private Button b_saveNote;
 
-    @FXML
-    private Button b_delNote;
-    
-    @FXML
-    private Label l_selectedBook;
-    
-    @FXML
-    private Label l_chapName;
-    
-    @FXML
-    private Label l_noteName;
-    
-    @FXML
-    private Button b_createNote;
-    
-    @FXML
-    private Button b_delChapter;
-    
-    @FXML
-    private Button b_delAct;
-    
-    @FXML
-    private TextField tf_state;
-    
-    @FXML
-    private Button b_saveSate;
+	@FXML
+	private Button b_delNote;
 
-    private ObservableList<Act> actList;
-    private ObservableList<Chapter> chapterList;
-    private ObservableList<ChapterNote> chapterNotes;
-    private ObservableList<Chapter> sortedChapterList;
-    
-    public static Chapter currentChapter;
-    
+	@FXML
+	private Label l_selectedBook;
+
+	@FXML
+	private Label l_chapName;
+
+	@FXML
+	private Label l_noteName;
+
+	@FXML
+	private Button b_createNote;
+
+	@FXML
+	private Button b_delChapter;
+
+	@FXML
+	private Button b_delAct;
+
+	@FXML
+	private TextField tf_state;
+
+	@FXML
+	private Button b_saveSate;
+
+	private ObservableList<Act> actList;
+	private ObservableList<Chapter> chapterList;
+	private ObservableList<ChapterNote> chapterNotes;
+	private ObservableList<Chapter> sortedChapterList;
+
+	public static Chapter currentChapter;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		System.out.println(MainScreenCrontroller.currentBook.toString());
 		this.l_selectedBook.setText(MainScreenCrontroller.currentBook.toString());
 		setObservablesList();
 		setComboboxes();
 		setChapterTable();
 		setChapterNotesTable();
-		
+
 	}
-	
+
 	public void setObservablesList() {
-		ChapterDAO cdao=new ChapterDAO();
-		ChapterNoteDAO cndao=new ChapterNoteDAO();
-		
+		ChapterDAO cdao = new ChapterDAO();
+		ChapterNoteDAO cndao = new ChapterNoteDAO();
+
 		try {
-			this.actList=FXCollections.observableArrayList();
-			this.chapterList=FXCollections.observableArrayList(cdao.showAll());
-			this.chapterNotes=FXCollections.observableArrayList(cndao.showAll());
-			this.sortedChapterList=FXCollections.observableArrayList();
+			this.actList = FXCollections.observableArrayList();
+			this.chapterList = FXCollections.observableArrayList(cdao.showAll());
+			this.chapterNotes = FXCollections.observableArrayList(cndao.showAll());
+			this.sortedChapterList = FXCollections.observableArrayList();
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setComboboxes() {
-		ActDAO adao=new ActDAO();
-		
-		List<Act> allActs=null;
-		
+		ActDAO adao = new ActDAO();
+
+		List<Act> allActs = null;
+
 		try {
 			allActs = new ArrayList<Act>(adao.showAll());
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		for (Act act : allActs) {
-			if(act.getBook()==currentBook) {
-				this.actList.add(act);				
+			if (act.getBook() == MainScreenCrontroller.currentBook) {
+				this.actList.add(act);
 			}
 		}
-		
+
 		this.cb_selAct.setItems(actList);
 	}
-	
+
 	public void setChapterTable() {
 		this.tv_chapters.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-					
-					//Lo que va a hacer cuando el usuario haga click en la tabla
-					
+
+					// Lo que va a hacer cuando el usuario haga click en la tabla
+
 					if (tv_chapters.getSelectionModel().getSelectedItem() != null) {
-						if(cb_selAct.getValue()!=null) {
-							currentChapter=tv_chapters.getSelectionModel().getSelectedItem();
-							
+						if (cb_selAct.getValue() != null) {
+							currentChapter = tv_chapters.getSelectionModel().getSelectedItem();
+
 							l_chapName.setText(currentChapter.getName());
 							ta_text.setText(currentChapter.getText());
 							tf_state.setText(currentChapter.getState());
@@ -210,18 +210,18 @@ public class SecondaryController implements Initializable{
 
 		this.tc_chapName.setCellValueFactory(new PropertyValueFactory<Chapter, String>("name"));
 		this.tc_chapState.setCellValueFactory(new PropertyValueFactory<Chapter, String>("state"));
-		
+
 		this.tv_chapters.getSortOrder().add(this.tc_chapName);
 	}
-	
+
 	public void setChapterNotesTable() {
 		this.tv_notes.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-					
-					//Lo que va a hacer cuando el usuario haga click en la tabla
-					
+
+					// Lo que va a hacer cuando el usuario haga click en la tabla
+
 					if (tv_notes.getSelectionModel().getSelectedItem() != null) {
 						l_noteName.setText(tv_notes.getSelectionModel().getSelectedItem().getName());
 						ta_note.setText(tv_notes.getSelectionModel().getSelectedItem().getContent());
@@ -234,32 +234,32 @@ public class SecondaryController implements Initializable{
 		this.tc_NoteChapter.setCellValueFactory(new PropertyValueFactory<ChapterNote, Long>("id"));
 
 		this.tv_notes.setItems(chapterNotes);
-		
+
 		this.tv_notes.getSortOrder().add(this.tc_noteName);
 	}
-	
+
 	@FXML
 	public void checkBookChapters() {
-		Act a=this.cb_selAct.getValue();
-		
-		if(a!=null) {
+		Act a = this.cb_selAct.getValue();
+
+		if (a != null) {
 			this.sortedChapterList.clear();
-			
-			for (Chapter c: chapterList) {
-				if(c.getAct().getId()==a.getId()) {
+
+			for (Chapter c : chapterList) {
+				if (c.getAct().getId() == a.getId()) {
 					this.sortedChapterList.add(c);
 				}
 			}
-			
+
 			this.tv_chapters.setItems(this.sortedChapterList);
 		}
 	}
-	
+
 	@FXML
 	public void saveChapter() {
 		currentChapter.setText(this.ta_text.getText());
-		
-		ChapterDAO cdao=new ChapterDAO();
+
+		ChapterDAO cdao = new ChapterDAO();
 		try {
 			cdao.save(currentChapter);
 		} catch (DAOException e) {
@@ -267,15 +267,15 @@ public class SecondaryController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	public void saveChapterNote() {
-		ChapterNote cn=this.tv_notes.getSelectionModel().getSelectedItem();
-		
-		if(cn!=null&&this.ta_note.getText()!=null) {
+		ChapterNote cn = this.tv_notes.getSelectionModel().getSelectedItem();
+
+		if (cn != null && this.ta_note.getText() != null) {
 			cn.setContent(this.ta_note.getText());
-			
-			ChapterNoteDAO cndao=new ChapterNoteDAO();
+
+			ChapterNoteDAO cndao = new ChapterNoteDAO();
 			try {
 				cndao.save(cn);
 			} catch (DAOException e) {
@@ -284,13 +284,13 @@ public class SecondaryController implements Initializable{
 			}
 		}
 	}
-	
+
 	@FXML
 	public void deleteChapterNote() {
-		ChapterNote cn=this.tv_notes.getSelectionModel().getSelectedItem();
-		
-		if(cn!=null) {
-			ChapterNoteDAO cndao=new ChapterNoteDAO();
+		ChapterNote cn = this.tv_notes.getSelectionModel().getSelectedItem();
+
+		if (cn != null) {
+			ChapterNoteDAO cndao = new ChapterNoteDAO();
 			try {
 				cndao.delete(cn);
 				this.chapterNotes.remove(cn);
@@ -301,27 +301,27 @@ public class SecondaryController implements Initializable{
 			}
 		}
 	}
-	
+
 	@FXML
 	public void createChapterNote() {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalChapterNote.fxml"));
-		Parent root=null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalChapterNote.fxml"));
+		Parent root = null;
 		try {
 			root = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Scene scene=new Scene(root);
-		Stage stage=new Stage();
+
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.showAndWait();
-		
-		ChapterNoteDAO cndao=new ChapterNoteDAO();
-		
+
+		ChapterNoteDAO cndao = new ChapterNoteDAO();
+
 		this.chapterNotes.clear();
 		try {
 			this.chapterNotes.addAll(cndao.showAll());
@@ -330,52 +330,52 @@ public class SecondaryController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-	public void createChapter() {	
-		if(cb_selAct.getSelectionModel().getSelectedItem()!=null) {
-			FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalCreateChapter.fxml"));
-			Parent root=null;
+	public void createChapter() {
+		if (cb_selAct.getSelectionModel().getSelectedItem() != null) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalCreateChapter.fxml"));
+			Parent root = null;
 			try {
 				root = loader.load();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			Scene scene=new Scene(root);
-			Stage stage=new Stage();
+
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.showAndWait();
-			
-			ChapterDAO cdao=new ChapterDAO();
-			
-			if(ModalCreateChapterController.createdChapter!=null) {
+
+			ChapterDAO cdao = new ChapterDAO();
+
+			if (ModalCreateChapterController.createdChapter != null) {
 				this.chapterList.clear();
-				
-				try {		
+
+				try {
 					this.sortedChapterList.add(ModalCreateChapterController.createdChapter);
 					this.chapterList.addAll(cdao.showAll());
 				} catch (DAOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}						
+				}
 			}
-			
-		}else {
+
+		} else {
 			Utils.popWarning("Elija un acto primero");
 		}
 	}
-	
+
 	@FXML
 	public void deleteChapter() {
-		Chapter c=tv_chapters.getSelectionModel().getSelectedItem();
-		
-		ChapterDAO cdao=new ChapterDAO();
-		
-		if(c!=null) {
+		Chapter c = tv_chapters.getSelectionModel().getSelectedItem();
+
+		ChapterDAO cdao = new ChapterDAO();
+
+		if (c != null) {
 			try {
 				cdao.delete(c);
 				this.sortedChapterList.remove(c);
@@ -389,29 +389,29 @@ public class SecondaryController implements Initializable{
 			Utils.popWarning("Seleccione un capitulo a borrar");
 		}
 	}
-	
+
 	@FXML
 	public void saveState() {
-		String state=this.tf_state.getText();
-		
+		String state = this.tf_state.getText();
+
 		System.out.println(currentChapter);
-		
-		if(currentChapter!=null) {
-			if(!state.isEmpty()) {
+
+		if (currentChapter != null) {
+			if (!state.isEmpty()) {
 				currentChapter.setState(state);
-				ChapterDAO cdao=new ChapterDAO();
-				
+				ChapterDAO cdao = new ChapterDAO();
+
 				try {
 					cdao.save(currentChapter);
-					
-					for (int i=0; i<this.chapterList.size(); i++) {
-						if(this.chapterList.get(i).equals(currentChapter)) {
+
+					for (int i = 0; i < this.chapterList.size(); i++) {
+						if (this.chapterList.get(i).equals(currentChapter)) {
 							this.chapterList.get(i).setState(state);
 							this.tv_chapters.refresh();
-							i=this.chapterList.size();
+							i = this.chapterList.size();
 						}
 					}
-					
+
 				} catch (DAOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -419,17 +419,71 @@ public class SecondaryController implements Initializable{
 			} else {
 				Utils.popInfo("Introduzca un estado");
 			}
-		}else {
+		} else {
 			Utils.popInfo("Seleccione un capitulo primero");
 		}
 	}
-	
+
 	@FXML
 	public void createAct() {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalCreateAct.fxml"));
-		Parent root=null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalCreateAct.fxml"));
+		Parent root = null;
 		try {
 			root = loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void deleteAct() {
+		Act a = cb_selAct.getSelectionModel().getSelectedItem();
+
+		if (a != null) {
+			ActDAO adao = new ActDAO();
+
+			try {
+				adao.delete(a);
+				this.actList.remove(a);
+				Utils.popInfo("Acto borrado");
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			Utils.popWarning("Seleccione un acto primero");
+		}
+	}
+
+	@FXML
+	public void GoCreateCharacter(ActionEvent event) {
+		openModal(event, "ModalCreateCharacter.fxml");
+	}
+
+	@FXML
+	public void GoEditCharacter(ActionEvent event) {
+		openModal(event, "ModalEditCharacter.fxml");
+	}
+
+	/**
+	 * Método que abre una ventana modal
+	 * 
+	 * @param event
+	 * @param url   nombre del fichero fxml
+	 */
+	private void openModal(ActionEvent event, String url) {
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(url));
+		Parent modal;
+		try {
+			modal = fxmlLoader.load();
+			Stage modalStage = new Stage();
+			modalStage.initModality(Modality.APPLICATION_MODAL);
+			modalStage.initOwner(App.roostage);
+			Scene modalScene = new Scene(modal);
+			modalStage.setScene(modalScene);
+			modalStage.showAndWait();
+			modalStage.setResizable(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
