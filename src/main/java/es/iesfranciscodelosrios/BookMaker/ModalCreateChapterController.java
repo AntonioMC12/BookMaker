@@ -42,7 +42,7 @@ public class ModalCreateChapterController implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	currentBook=SecondaryController.currentBook;
+    	currentBook=MainScreenCrontroller.currentBook;
     	
     	ActDAO adao=new ActDAO();
     	

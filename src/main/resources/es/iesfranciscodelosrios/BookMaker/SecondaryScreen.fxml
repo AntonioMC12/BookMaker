@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,11 +16,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="965.0" prefWidth="1330.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.SecondaryController">
    <children>
       <MenuBar fx:id="menuBar" layoutX="230.0" layoutY="57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-            <Menu fx:id="m_characters" mnemonicParsing="false" text="Personajes" />
+            <Menu fx:id="m_characters" mnemonicParsing="false" text="Personajes">
+               <items>
+                  <MenuItem fx:id="mit_createCharacter" mnemonicParsing="false" onAction="#GoCreateCharacter" text="Crear Personaje" />
+                  <MenuItem fx:id="mit_editCharacter" mnemonicParsing="false" onAction="#GoEditCharacter" text="Editar Personaje" />
+                  <MenuItem fx:id="mit_showCharacter" mnemonicParsing="false" text="Ver Personajes" />
+               </items></Menu>
           <Menu fx:id="m_notes" mnemonicParsing="false" text="Notas" />
         </menus>
       </MenuBar>

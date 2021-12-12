@@ -88,7 +88,7 @@ public class LoginController {
 						alert.setContentText("El email y la contraseña son correctos");
 						alert.showAndWait();
 						try {
-							App.setRoot("MainScreen");
+							App.GoTo(event, "MainScreen");
 						} catch (Exception e) {
 							throw new DAOException(e);
 						}

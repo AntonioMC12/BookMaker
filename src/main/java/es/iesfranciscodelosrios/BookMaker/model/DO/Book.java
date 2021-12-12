@@ -55,7 +55,7 @@ public class Book implements IBook, Serializable {
 	
 	// para 1:N siendo globalnotes la tabla 1
 	// mappedBy apunta al campo java de la clase many
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<GlobalNote> globalNotes;
 	
 	// para 1:N siendo reminders la tabla 1

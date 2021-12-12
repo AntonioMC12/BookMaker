@@ -18,6 +18,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -136,14 +137,13 @@ public class SecondaryController implements Initializable{
     private ObservableList<ChapterNote> chapterNotes;
     private ObservableList<Chapter> sortedChapterList;
     
-    public static Book currentBook;
     public static Chapter currentChapter;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		System.out.println(MainScreenCrontroller.currentBook.toString());
-
+		this.l_selectedBook.setText(MainScreenCrontroller.currentBook.toString());
 		setObservablesList();
 		setComboboxes();
 		setChapterTable();
@@ -433,37 +433,6 @@ public class SecondaryController implements Initializable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		Scene scene=new Scene(root);
-		Stage stage=new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.showAndWait();
-		
-		if(ModalCreateActController.createdAct!=null) {
-			this.actList.add(ModalCreateActController.createdAct);			
-		}
-	}
-	
-	@FXML
-	public void deleteAct() {
-		Act a=cb_selAct.getSelectionModel().getSelectedItem();
-		
-		if(a!=null) {
-			ActDAO adao=new ActDAO();
-			
-			try {
-				adao.delete(a);
-				this.actList.remove(a);
-				Utils.popInfo("Acto borrado");
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			Utils.popWarning("Seleccione un acto primero");
 		}
 	}
 }

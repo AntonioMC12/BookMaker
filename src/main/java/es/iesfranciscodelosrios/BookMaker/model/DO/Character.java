@@ -38,6 +38,16 @@ public class Character implements ICharacter, Serializable {
 
 	@ManyToMany(targetEntity=Book.class, mappedBy="characters")
 	private List<Book> books;
+	
+	
+
+	public Character(Long id, String name, String description, String rol, List<Book> books) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.rol = rol;
+		this.books = books;
+	}
 
 	public Character(String name, String description, String rol, List<Book> books) {
 		this.id = -1L;
