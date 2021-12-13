@@ -4,6 +4,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.UserDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.DO.UserSesion;
+import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,8 +36,8 @@ public class ModalEditUserController {
 			stage.close();
 
 		} catch (Exception e) {
-			throw new DAOException("Ha ocurrido un error.", e);
-		}
+			e.printStackTrace();
+			Utils.popError("Error al dejar la pantalla. ");		}
 	}
 
 	@FXML
@@ -50,15 +51,15 @@ public class ModalEditUserController {
 				UserSesion.getInstance().setUser(user);
 				System.out.println(UserSesion.getInstance().getUser());
 			} catch (Exception e) {
-				throw new DAOException("Ha ocurrido un error.", e);
+				e.printStackTrace();
+				Utils.popError("Error al editar el usuario. ");
 			}
 		}
 	}
 
 	public void initialize() {
-		System.out.println("ENTRO EN EL INITIALIZEEEEEEEEEEE");
+
 		user = UserSesion.getInstance().getUser();
-		System.out.println(user);
 		this.txtNombre.setText(user.getName());
 		this.txtPassword.setText(user.getPassword().replaceAll(user.getPassword(), "******"));
 	}

@@ -51,6 +51,7 @@ public class ModalCreateChapterController implements Initializable{
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
     	
     	Iterator<Act> myIterator=this.actList.iterator();
@@ -83,6 +84,7 @@ public class ModalCreateChapterController implements Initializable{
     			createdChapter=c;
     		}catch(DAOException e) {
     			e.printStackTrace();
+    			Utils.popError("Error al insertar. ");
     		}
     		
     		Utils.popInfo("Captitulo creado correctamente");

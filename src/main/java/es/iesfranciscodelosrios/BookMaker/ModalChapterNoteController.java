@@ -46,6 +46,7 @@ public class ModalChapterNoteController {
 				stage.close();
 			} catch (DAOException e) {
 				e.printStackTrace();
+				Utils.popError("Error al insertar la nota. ");
 			}
     	}else {
     		Utils.popWarning("Por favor, rellene todos los campos");

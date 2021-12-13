@@ -15,6 +15,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DAO.UserDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.DO.UserSesion;
+import es.iesfranciscodelosrios.BookMaker.utils.Utils;
 import javafx.event.ActionEvent;
 
 public class ModalBookController {
@@ -46,7 +47,8 @@ public class ModalBookController {
 				stage.close();
 			}
 		} catch (Exception e) {
-			throw new DAOException("Ha ocurrido un error.", e);
+			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 	}
 

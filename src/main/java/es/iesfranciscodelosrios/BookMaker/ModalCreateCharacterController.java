@@ -40,6 +40,7 @@ public class ModalCreateCharacterController {
 			stage.close();
 		} catch (Exception e) {
 			Utils.popError("Error al cerrar la ventana");
+			e.printStackTrace();
 		}
 	}
 	
