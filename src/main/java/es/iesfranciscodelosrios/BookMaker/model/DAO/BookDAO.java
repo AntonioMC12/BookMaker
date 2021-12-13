@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
 
+import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.IBookDAO;
@@ -71,7 +72,8 @@ public class BookDAO implements IBookDAO {
 		List<Book> books = new ArrayList<>();
 		try {
 			EntityManager em = createEM();
-			books = em.createQuery("getAllBooks", Book.class).getResultList();
+			TypedQuery<Book> q = em.createNamedQuery("getAllBooks", Book.class);
+			books = q.getResultList();
 		} catch (IllegalStateException e) {
 			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
 		} catch (EntityExistsException e) {

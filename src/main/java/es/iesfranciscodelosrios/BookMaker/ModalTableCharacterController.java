@@ -72,5 +72,27 @@ public class ModalTableCharacterController implements Initializable{
 		
 		this.tbwCharacter.setItems(characterList);
 	}
+	
+	@FXML
+	public void deleteCharacter() {
+		es.iesfranciscodelosrios.BookMaker.model.DO.Character c;
+		
+		c=this.tbwCharacter.getSelectionModel().getSelectedItem();
+		
+		if(c!=null) {
+			CharacterDAO cdao=new CharacterDAO();
+			
+			try {
+				cdao.delete(c);
+				this.characterList.remove(c);
+				Utils.popInfo("Personaje borrado con exito");
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			Utils.popInfo("Seleccione un personaje primero");
+		}
+	}
 
 }

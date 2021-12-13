@@ -11,6 +11,7 @@ import es.iesfranciscodelosrios.BookMaker.model.DAO.ActDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.BookDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterNoteDAO;
+import es.iesfranciscodelosrios.BookMaker.model.DAO.CharacterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.GlobalNoteDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ReminderDAO;
@@ -192,7 +193,7 @@ public class mainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		
 		ChapterNoteDAO cndao=new ChapterNoteDAO();
 		
@@ -201,6 +202,19 @@ public class mainTest {
 		
 		try {
 			System.out.println(cndao.selectedByChapter(c));
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		CharacterDAO cdao=new CharacterDAO();
+		
+		Book b=new Book();
+		b.setId(1L);
+		
+		try {
+			System.out.println(cdao.selectByBook(b));
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

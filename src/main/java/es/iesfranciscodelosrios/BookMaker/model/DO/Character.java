@@ -19,6 +19,7 @@ import es.iesfranciscodelosrios.BookMaker.model.IDO.ICharacter;
 @Table(name = "Character")
 @NamedQueries({
 	@NamedQuery(name="getCharacterByName", query="SELECT ch FROM Character ch WHERE ch.name=:name"),
+	@NamedQuery(name="getAllCharactersByBook", query="SELECT ch FROM Character ch join ch.books b WHERE b=:book"),
 	@NamedQuery(name="getAllCharacters", query="SELECT ch FROM Character ch")
 })
 public class Character implements ICharacter, Serializable {

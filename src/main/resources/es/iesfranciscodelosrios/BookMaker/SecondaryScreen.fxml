@@ -59,11 +59,6 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_addReminder" layoutX="97.0" layoutY="606.0" mnemonicParsing="false" text="Recordatorio" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="720.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
                   <Button fx:id="b_newAct" layoutX="144.0" layoutY="725.0" mnemonicParsing="false" onAction="#createAct" prefHeight="50.0" prefWidth="115.0" text="Crear Acto" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="620.0">
                      <font>
                         <Font size="14.0" />
@@ -88,7 +83,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #EED09D;">
                <children>
-                  <Label layoutX="54.0" layoutY="59.0" text="CAPITULO:" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="60.0">
+                  <Label layoutX="218.0" layoutY="34.0" text="CAPITULO" AnchorPane.leftAnchor="218.0" AnchorPane.topAnchor="34.0">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
@@ -104,7 +99,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Label fx:id="l_chapName" layoutX="262.0" layoutY="60.0" text="Nombre Capitulo" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="60.0">
+                  <Label fx:id="l_chapName" alignment="CENTER" layoutX="173.0" layoutY="87.0" text="Nombre Capitulo" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="90.0">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -119,9 +114,9 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="939.0" prefWidth="363.0" style="-fx-background-color: #EED09D;">
                <children>
-                  <Label fx:id="l_noteName" layoutX="61.0" layoutY="59.0" text="Nombre Nota" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+                  <Label fx:id="l_noteName" alignment="CENTER" layoutX="61.0" layoutY="59.0" prefHeight="70.0" text="Nombre Nota" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="40.0">
                      <font>
-                        <Font size="36.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
                   <TextArea fx:id="ta_note" layoutX="71.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="130.0" />

@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import es.iesfranciscodelosrios.BookMaker.model.IDAO.ICharacterDAO;
 import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Character;
 
 public class CharacterDAO implements ICharacterDAO {
@@ -151,5 +152,31 @@ public class CharacterDAO implements ICharacterDAO {
 
 		return chapters;
 	}
+	
+	public List<Character> selectByBook(Book book) throws DAOException {
+		List<Character> chapters = new ArrayList<Character>();
+		EntityManager em = createEM();
 
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Character> q = em.createNamedQuery("getAllCharactersByBook", Character.class);
+			q.setParameter("book", book);
+			chapters = q.getResultList();
+			em.getTransaction().commit();
+		} catch (EntityExistsException e) {
+			throw new DAOException("The entity already exists.");
+		} catch (IllegalStateException e) {
+			throw new DAOException("Signals that a method has been invoked at an illegal orinappropriate time.", e);
+		} catch (RollbackException e) {
+			throw new DAOException("Error during commit. Undoing changes...", e);
+		} catch (TransactionRequiredException e) {
+			throw new DAOException("Transaction is required but is notactive.", e);
+		} catch (IllegalArgumentException e) {
+			throw new DAOException("Undefined or unvalid query", e);
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+
+		return chapters;
+	}
 }
