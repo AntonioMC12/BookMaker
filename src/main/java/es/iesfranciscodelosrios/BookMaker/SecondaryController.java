@@ -291,17 +291,21 @@ public class SecondaryController implements Initializable {
 	public void saveChapterNote() {
 		ChapterNote cn = this.tv_notes.getSelectionModel().getSelectedItem();
 
-		if (cn != null && this.ta_note.getText() != null) {
-			cn.setContent(this.ta_note.getText());
-
-			ChapterNoteDAO cndao = new ChapterNoteDAO();
-			try {
-				cndao.save(cn);
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				Utils.popError("Error al guardar la nota. ");
-			}
+		if(cn!=null) {
+			if (this.ta_note.getText() != null) {
+				cn.setContent(this.ta_note.getText());
+				
+				ChapterNoteDAO cndao = new ChapterNoteDAO();
+				try {
+					cndao.save(cn);
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Utils.popError("Error al guardar la nota. ");
+				}
+			}			
+		}else {
+			Utils.popWarning("Seleccione una nota primero");
 		}
 	}
 
@@ -320,37 +324,43 @@ public class SecondaryController implements Initializable {
 				e.printStackTrace();
 				Utils.popError("Error al borrar la nota. ");
 			}
+		}else {
+			Utils.popWarning("Seleccione una nota primero");
 		}
 	}
 
 	@FXML
 	public void createChapterNote() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalChapterNote.fxml"));
-		Parent root = null;
-		try {
-			root = loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Utils.popError("Error al cargar la pantalla. ");
-		}
-
-		Scene scene = new Scene(root);
-		Stage stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.showAndWait();
-
-		ChapterNoteDAO cndao = new ChapterNoteDAO();
-
-		this.chapterNotes.clear();
-		try {
-			this.chapterNotes.addAll(cndao.showAll());
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Utils.popError("Error al añadir las notas. ");
+		if(currentChapter!=null) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalChapterNote.fxml"));
+			Parent root = null;
+			try {
+				root = loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Utils.popError("Error al cargar la pantalla. ");
+			}
+			
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.showAndWait();
+			
+			ChapterNoteDAO cndao = new ChapterNoteDAO();
+			
+			this.chapterNotes.clear();
+			try {
+				this.chapterNotes.addAll(cndao.selectedByChapter(currentChapter));
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Utils.popError("Error al añadir las notas. ");
+			}	
+		}else {
+			Utils.popWarning("Seleccione un capitulo primero");
 		}
 	}
 
