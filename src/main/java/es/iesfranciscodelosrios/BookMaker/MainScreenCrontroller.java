@@ -158,12 +158,12 @@ public class MainScreenCrontroller {
 
 		} catch (DAOException e) {
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 	}
 
 	@FXML
 	public void selectBook() {
-		System.out.println("Entro en el selectBook");
 		this.btn_continue.setDisable(false);
 		this.btn_delete.setDisable(false);
 		@SuppressWarnings("rawtypes")
@@ -258,6 +258,7 @@ public class MainScreenCrontroller {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 	}
 

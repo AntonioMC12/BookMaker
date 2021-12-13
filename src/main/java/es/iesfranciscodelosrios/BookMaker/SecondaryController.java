@@ -163,6 +163,7 @@ public class SecondaryController implements Initializable {
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 	}
 
@@ -176,6 +177,7 @@ public class SecondaryController implements Initializable {
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 
 		for (Act act : allActs) {
@@ -265,6 +267,7 @@ public class SecondaryController implements Initializable {
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al guardar el capítulo. ");
 		}
 	}
 
@@ -281,6 +284,7 @@ public class SecondaryController implements Initializable {
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Utils.popError("Error al guardar la nota. ");
 			}
 		}
 	}
@@ -298,6 +302,7 @@ public class SecondaryController implements Initializable {
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Utils.popError("Error al borrar la nota. ");
 			}
 		}
 	}
@@ -311,6 +316,7 @@ public class SecondaryController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al cargar la pantalla. ");
 		}
 
 		Scene scene = new Scene(root);
@@ -328,6 +334,7 @@ public class SecondaryController implements Initializable {
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al añadir las notas. ");
 		}
 	}
 
@@ -341,6 +348,7 @@ public class SecondaryController implements Initializable {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Utils.popError("Error al cargar la pantalla. ");
 			}
 
 			Scene scene = new Scene(root);
@@ -361,6 +369,7 @@ public class SecondaryController implements Initializable {
 				} catch (DAOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					Utils.popError("Error al añadir los Capítulos. ");
 				}
 			}
 
@@ -433,6 +442,7 @@ public class SecondaryController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al crear el Acto. ");
 		}
 	}
 
@@ -450,6 +460,7 @@ public class SecondaryController implements Initializable {
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Utils.popError("Error al eliminar el Acto. ");
 			}
 		} else {
 			Utils.popWarning("Seleccione un acto primero");
@@ -487,6 +498,7 @@ public class SecondaryController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Utils.popError("Error al mostrar la nueva pantalla. ");
 		}
 	}
 }

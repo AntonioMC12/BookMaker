@@ -42,6 +42,7 @@ public class ModalTableCharacterController implements Initializable{
 			stage.close();
 		} catch (Exception e) {
 			Utils.popError("Error al cerrar la ventana");
+			e.printStackTrace();
 		}
 	}
 
