@@ -170,7 +170,7 @@ public class Character implements ICharacter, Serializable {
 
 	@Override
 	public String toString() {
-		return "Character [id=" + id + ", name=" + name + ", description=" + description + ", rol=" + rol + "]";
+		return name;
 	}
 
 	

@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ActDAO;
-import es.iesfranciscodelosrios.BookMaker.model.DAO.BookDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.ChapterNoteDAO;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Act;
-import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.Chapter;
 import es.iesfranciscodelosrios.BookMaker.model.DO.ChapterNote;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
@@ -30,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,6 +49,9 @@ public class SecondaryController implements Initializable {
 
 	@FXML
 	private Menu m_notes;
+	
+	@FXML
+	private MenuItem mit_showCharacter;
 
 	@FXML
 	private SplitPane sp_main;
@@ -131,6 +133,8 @@ public class SecondaryController implements Initializable {
 
 	@FXML
 	private Button b_saveSate;
+	
+	
 
 	private ObservableList<Act> actList;
 	private ObservableList<Chapter> chapterList;
@@ -158,7 +162,7 @@ public class SecondaryController implements Initializable {
 		try {
 			this.actList = FXCollections.observableArrayList();
 			this.chapterList = FXCollections.observableArrayList(cdao.showAll());
-			this.chapterNotes = FXCollections.observableArrayList(cndao.showAll());
+			this.chapterNotes = FXCollections.observableArrayList();
 			this.sortedChapterList = FXCollections.observableArrayList();
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
@@ -200,6 +204,18 @@ public class SecondaryController implements Initializable {
 					if (tv_chapters.getSelectionModel().getSelectedItem() != null) {
 						if (cb_selAct.getValue() != null) {
 							currentChapter = tv_chapters.getSelectionModel().getSelectedItem();
+							
+							chapterNotes.clear();
+							
+							ChapterNoteDAO cndao=new ChapterNoteDAO();
+							
+							try {
+								chapterNotes.setAll(cndao.selectedByChapter(currentChapter));
+								//tv_notes.refresh();
+							} catch (DAOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
 							l_chapName.setText(currentChapter.getName());
 							ta_text.setText(currentChapter.getText());
@@ -435,14 +451,25 @@ public class SecondaryController implements Initializable {
 
 	@FXML
 	public void createAct() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ModalCreateAct.fxml"));
-		Parent root = null;
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("ModalCreateAct.fxml"));
+		Parent root=null;
 		try {
 			root = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Utils.popError("Error al crear el Acto. ");
+		}
+		
+		Scene scene=new Scene(root);
+		Stage stage=new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.showAndWait();
+		
+		if(ModalCreateActController.createdAct!=null) {
+			this.actList.add(ModalCreateActController.createdAct);			
 		}
 	}
 
@@ -476,6 +503,11 @@ public class SecondaryController implements Initializable {
 	public void GoEditCharacter(ActionEvent event) {
 		openModal(event, "ModalEditCharacter.fxml");
 	}
+	
+	@FXML
+	public void GoShowCharacters(ActionEvent event) {
+		openModal(event, "ModalTableCharacter.fxml");
+	}
 
 	/**
 	 * Método que abre una ventana modal
@@ -500,5 +532,10 @@ public class SecondaryController implements Initializable {
 			e.printStackTrace();
 			Utils.popError("Error al mostrar la nueva pantalla. ");
 		}
+	}
+	
+	@FXML
+	public void goToMainController(ActionEvent event) {
+		App.GoTo(event, "MainScreen");
 	}
 }
