@@ -97,7 +97,7 @@ public class UserDAO implements IUserDAO {
 
 		try {
 			em.getTransaction().begin();
-			TypedQuery<User> q = em.createNamedQuery("getAllUser", User.class);
+			TypedQuery<User> q = em.createNamedQuery("getAllUsers", User.class);
 			users = q.getResultList();
 			em.getTransaction().commit();
 		} catch (EntityExistsException e) {
