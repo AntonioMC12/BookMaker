@@ -5,9 +5,13 @@ import java.util.List;
 
 import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
 import es.iesfranciscodelosrios.BookMaker.model.DAO.UserDAO;
+import es.iesfranciscodelosrios.BookMaker.model.DO.Book;
 import es.iesfranciscodelosrios.BookMaker.model.DO.User;
 import es.iesfranciscodelosrios.BookMaker.model.DO.UserSesion;
+import es.iesfranciscodelosrios.BookMaker.utils.PersistenceUnit;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +41,7 @@ public class LoginController {
 	private Button botSalir;
 
 	@FXML
-	private ComboBox<?> cmb_Datos;
+	private ComboBox<String> cmb_Datos;
 
 	@FXML
 	private TextField txtNombreRegistro;
@@ -53,6 +57,14 @@ public class LoginController {
 
 	@FXML
 	private UserDAO usuario = new UserDAO();
+	
+	@FXML
+	public void initialize() {
+		ObservableList<String> op = FXCollections.observableArrayList();
+		op.add("MariaDB");
+		op.add("H2");
+		this.cmb_Datos.setItems(op);
+	}
 
 	/**
 	 * Método que comprueba los datos de los usuarios para el correcto logeo en la
@@ -69,6 +81,7 @@ public class LoginController {
 
 		if (checkFieldsLogin()) {
 			try {
+				setDB();
 				List<User> users = new UserDAO().showAll();
 				if (compareUsers(users, email, pass)) {
 					holder.setUser(new UserDAO().selectByEmailAndPass(email, pass));
@@ -81,7 +94,7 @@ public class LoginController {
 				e1.printStackTrace();
 			}
 		} else {
-			Utils.popError("Has introducido mal algún dato");
+			Utils.popError("No ha introducido algun dato o no ha seleccionado la base de datos");
 		}
 	}
 
@@ -99,6 +112,7 @@ public class LoginController {
 			String mail = txtEmailRegistro.getText();
 
 			try {
+				setDB();
 				User c = new User(user, password, mail);
 				new UserDAO().save(c);
 				if (c != null) {
@@ -117,6 +131,8 @@ public class LoginController {
 			} catch (DAOException e1) {
 				Utils.popError("Error al consultar la base de datos");
 			}
+		}else {
+			Utils.popError("No ha introducido algun dato o no ha seleccionado la base de datos");
 		}
 	}
 
@@ -130,13 +146,13 @@ public class LoginController {
 
 	@FXML
 	public boolean checkFieldsLogin() {
-		return (!this.txtUsuario.getText().trim().isEmpty() && !this.txtPass.getText().trim().isEmpty());
+		return (!this.txtUsuario.getText().trim().isEmpty() && !this.txtPass.getText().trim().isEmpty() && (this.cmb_Datos.getValue()=="MariaDB" || this.cmb_Datos.getValue()=="H2"));
 
 	}
 
 	public boolean checkFields() {
 		return (!this.txtEmailRegistro.getText().trim().isEmpty() && !this.txtNombreRegistro.getText().trim().isEmpty()
-				&& !this.txtPassRegistro.getText().trim().isEmpty());
+				&& !this.txtPassRegistro.getText().trim().isEmpty() && (this.cmb_Datos.getValue()=="MariaDB" || this.cmb_Datos.getValue()=="H2"));
 	}
 
 	public boolean compareUsers(List<User> users, String email, String pass) {
@@ -148,5 +164,11 @@ public class LoginController {
 		}
 
 		return result;
+	}
+	
+	public void setDB() {
+		if(this.cmb_Datos.getValue()=="MariaDB") {
+			PersistenceUnit.mode=true;
+		}
 	}
 }
