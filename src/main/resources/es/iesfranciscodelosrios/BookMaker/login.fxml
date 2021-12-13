@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.LoginController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #EED09D;" BorderPane.alignment="CENTER">
          <children>
@@ -20,9 +20,9 @@
                   <Image url="@../imagenes/icono1.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtNombreRegistro" layoutX="100.0" layoutY="290.0" onKeyTyped="#eventKey" promptText="Usuario Registro" />
-            <PasswordField fx:id="txtPassRegistro" layoutX="100.0" layoutY="331.0" onKeyTyped="#eventKey" promptText="Contraseña Registro" />
-            <TextField fx:id="txtEmailRegistro" layoutX="100.0" layoutY="250.0" onKeyTyped="#eventKey" promptText="Email Registro" />
+            <TextField fx:id="txtNombreRegistro" layoutX="100.0" layoutY="290.0" promptText="Usuario Registro" />
+            <PasswordField fx:id="txtPassRegistro" layoutX="100.0" layoutY="331.0" promptText="Contraseña Registro" />
+            <TextField fx:id="txtEmailRegistro" layoutX="100.0" layoutY="250.0" promptText="Email Registro" />
             <Label layoutX="58.0" layoutY="211.0" prefHeight="18.0" prefWidth="257.0" text="Si no tienes Usuario puedes crearlo aqui:">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
@@ -34,9 +34,9 @@
    <center>
       <AnchorPane id="cmb_database" prefHeight="500.0" prefWidth="461.0" style="-fx-background-color: #FFFAFA;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtUsuario" layoutX="100.0" layoutY="250.0" onKeyTyped="#eventKey" promptText="Email" />
-            <PasswordField fx:id="txtPass" layoutX="100.0" layoutY="288.0" onKeyTyped="#eventKey" promptText="Contraseña" />
-            <Button fx:id="botEntrar" layoutX="100.0" layoutY="385.0" mnemonicParsing="false" onAction="#eventAction" text="Entrar" />
+            <TextField fx:id="txtUsuario" layoutX="100.0" layoutY="250.0" promptText="Email" />
+            <PasswordField fx:id="txtPass" layoutX="100.0" layoutY="288.0" promptText="Contraseña" />
+            <Button fx:id="botEntrar" layoutX="100.0" layoutY="385.0" mnemonicParsing="false" onAction="#Login" text="Entrar" />
             <Label layoutX="28.0" layoutY="69.0" prefHeight="88.0" prefWidth="294.0" text="Bienvenido a BookMaker">
                <font>
                   <Font name="Berlin Sans FB Bold" size="13.0" />
