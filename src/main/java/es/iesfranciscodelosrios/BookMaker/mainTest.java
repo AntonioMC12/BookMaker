@@ -179,7 +179,7 @@ public class mainTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		
 		
 		//em.getTransaction().commit();
@@ -188,6 +188,19 @@ public class mainTest {
 		
 		try {
 			System.out.println(adao.showAll());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		
+		ChapterNoteDAO cndao=new ChapterNoteDAO();
+		
+		Chapter c=new Chapter();
+		c.setId(1L);
+		
+		try {
+			System.out.println(cndao.selectedByChapter(c));
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -52,6 +52,8 @@ public class ModalCreateCharacterController {
 				new CharacterDAO().save(new Character(this.txtNombre.getText(), this.txtDescripcion.getText(), this.txtRol.getText(),books));
 				System.out.println(new CharacterDAO().showAll());
 				Utils.popConfirmation("Personaje creado con éxito");
+				Stage stage=(Stage) this.botVolver.getScene().getWindow();
+				stage.close();
 			} catch (DAOException e) {
 				Utils.popError("Error al crear el personaje");
 				e.printStackTrace();

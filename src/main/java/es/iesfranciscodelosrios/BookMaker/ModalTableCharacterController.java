@@ -1,9 +1,13 @@
 package es.iesfranciscodelosrios.BookMaker;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import es.iesfranciscodelosrios.BookMaker.model.DAO.CharacterDAO;
+import es.iesfranciscodelosrios.BookMaker.model.DAO.DAOException;
 import es.iesfranciscodelosrios.BookMaker.utils.Utils;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,21 +21,21 @@ import javafx.stage.Stage;
 public class ModalTableCharacterController implements Initializable{
 	
 	@FXML
-	private TableView<Character> tbwCharacter;
+	private TableView<es.iesfranciscodelosrios.BookMaker.model.DO.Character> tbwCharacter;
 	
 	@FXML
-	private TableColumn<Character, String> tcName;
+	private TableColumn<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String> tcName;
 	
 	@FXML
-	private TableColumn<Character, String> tcRol;
+	private TableColumn<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String> tcRol;
 	
 	@FXML
-	private TableColumn<Character, String> tcDescription;
+	private TableColumn<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String> tcDescription;
 	
 	@FXML
 	private Button botVolver;
 	
-	private ObservableList<Character> characterList;
+	private ObservableList<es.iesfranciscodelosrios.BookMaker.model.DO.Character> characterList;
 	
 	@FXML
 	public void handleBack(ActionEvent event) {
@@ -52,9 +56,19 @@ public class ModalTableCharacterController implements Initializable{
 	}
 	
 	public void setCharacterTable() {
-		this.tcName.setCellValueFactory(new PropertyValueFactory<Character, String>("name"));
-		this.tcRol.setCellValueFactory(new PropertyValueFactory<Character, String>("rol"));
-		this.tcDescription.setCellValueFactory(new PropertyValueFactory<Character, String>("description"));
+		CharacterDAO cdao=new CharacterDAO();
+		
+		try {
+			this.characterList=FXCollections.observableArrayList(cdao.showAll());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.tcName.setCellValueFactory(new PropertyValueFactory<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String>("name"));
+		this.tcRol.setCellValueFactory(new PropertyValueFactory<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String>("rol"));
+		this.tcDescription.setCellValueFactory(new PropertyValueFactory<es.iesfranciscodelosrios.BookMaker.model.DO.Character, String>("description"));
+		
 		this.tbwCharacter.setItems(characterList);
 	}
 

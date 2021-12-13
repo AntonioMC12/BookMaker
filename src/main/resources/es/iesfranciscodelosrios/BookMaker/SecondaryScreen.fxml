@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="965.0" prefWidth="1330.0" style="-fx-background-color: #EED09D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.iesfranciscodelosrios.BookMaker.SecondaryController">
    <children>
       <MenuBar fx:id="menuBar" layoutX="230.0" layoutY="57.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,9 +24,8 @@
                <items>
                   <MenuItem fx:id="mit_createCharacter" mnemonicParsing="false" onAction="#GoCreateCharacter" text="Crear Personaje" />
                   <MenuItem fx:id="mit_editCharacter" mnemonicParsing="false" onAction="#GoEditCharacter" text="Editar Personaje" />
-                  <MenuItem fx:id="mit_showCharacter" mnemonicParsing="false" text="Ver Personajes" />
+                  <MenuItem fx:id="mit_showCharacter" mnemonicParsing="false" onAction="#GoShowCharacters" text="Ver Personajes" />
                </items></Menu>
-          <Menu fx:id="m_notes" mnemonicParsing="false" text="Notas" />
         </menus>
       </MenuBar>
       <SplitPane fx:id="sp_main" dividerPositions="0.276355421686747, 0.7409638554216867" layoutX="283.0" layoutY="214.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
@@ -101,12 +99,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="b_cancel" layoutX="191.0" layoutY="735.0" mnemonicParsing="false" text="Cancelar" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="735.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="b_back" layoutX="426.0" layoutY="738.0" mnemonicParsing="false" text="Volver" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="735.0">
+                  <Button fx:id="b_back" layoutX="426.0" layoutY="738.0" mnemonicParsing="false" onAction="#goToMainController" text="Volver" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="735.0">
                      <font>
                         <Font size="14.0" />
                      </font>

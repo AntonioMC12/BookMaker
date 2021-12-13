@@ -73,9 +73,11 @@ public class ModalEditCharacterController {
 		if(checkFields()) {
 			try {
 				new CharacterDAO().edit(new Character(this.cb_characters.getValue().getId(),this.txtNombre.getText(), this.txtDescripcion.getText(), this.txtRol.getText(),this.cb_characters.getValue().getBooks()));
-				Utils.popConfirmation("Personaje creado con éxito");
+				Utils.popConfirmation("Personaje editado con éxito");
+				Stage stage=(Stage) this.botVolver.getScene().getWindow();
+				stage.close();
 			} catch (DAOException e) {
-				Utils.popError("Error al crear el personaje");
+				Utils.popError("Error al editar el personaje");
 				e.printStackTrace();
 			}
 		}else {
